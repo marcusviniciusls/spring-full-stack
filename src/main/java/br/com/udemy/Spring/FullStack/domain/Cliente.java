@@ -1,6 +1,8 @@
 package br.com.udemy.Spring.FullStack.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Table
@@ -22,6 +24,12 @@ public class Cliente {
     @ManyToOne
     @JoinColumn(name = "tipo_id")
     private Tipo tipo;
+    
+    @OneToMany(mappedBy = "telefone", cascade = CascadeType.ALL)
+    private List<Telefone> listaTelefones = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Endereco> listaEnderecos = new ArrayList<>();
 
     public Cliente(String nome, String email, Natureza natureza, Tipo tipo) {
         this.nome = nome;
@@ -54,6 +62,14 @@ public class Cliente {
         return natureza;
     }
 
+    public void addListaEndereco(Endereco endereco){
+        this.listaEnderecos.add(endereco);
+    }
+    
+    public void addListaCliente(Telefone telefone){
+        this.listaTelefones.add(telefone);    
+    }
+    
     public String getCpf() {
         return cpf;
     }
@@ -64,6 +80,14 @@ public class Cliente {
 
     public Tipo getTipo() {
         return tipo;
+    }
+
+    public List<Telefone> getListaTelefones() {
+        return listaTelefones;
+    }
+
+    public List<Endereco> getListaEnderecos() {
+        return listaEnderecos;
     }
 
     @Override

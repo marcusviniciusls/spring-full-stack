@@ -20,6 +20,10 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> listaItemPedidos = new ArrayList<>();
     
+    @ManyToOne
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
+    
     public Pedido(){}
 
     public Integer getId() {
@@ -36,6 +40,10 @@ public class Pedido {
     
     public void addListaItemPedidos(ItemPedido itemPedido){
         this.listaItemPedidos.add(itemPedido);
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
     }
 
     @Override
