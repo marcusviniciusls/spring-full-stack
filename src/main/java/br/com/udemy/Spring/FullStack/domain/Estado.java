@@ -1,6 +1,8 @@
 package br.com.udemy.Spring.FullStack.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Table
@@ -11,6 +13,9 @@ public class Estado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    
+    @OneToMany(mappedBy = "estado")
+    private List<Cidade> listaCidades = new ArrayList<>(); 
 
     public Estado(String nome) {
         this.nome = nome;
@@ -24,6 +29,14 @@ public class Estado {
 
     public String getNome() {
         return nome;
+    }
+    
+    public List<Cidade> getListaCidades() {
+        return listaCidades;
+    }
+    
+    public void addCidade(Cidade cidade){
+        this.listaCidades.add(cidade);
     }
 
     @Override

@@ -1,9 +1,13 @@
 package br.com.udemy.Spring.FullStack.services;
 
 import br.com.udemy.Spring.FullStack.domain.Categoria;
+import br.com.udemy.Spring.FullStack.exception.ResourceNotFoundException;
 import br.com.udemy.Spring.FullStack.repositorys.CategoriaRepository;
+import br.com.udemy.Spring.FullStack.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CategoriaService {
@@ -12,7 +16,7 @@ public class CategoriaService {
     private CategoriaRepository categoriaRepository;
     
     public Categoria buscarCategoria(Integer id){
-        Categoria categoria = categoriaRepository.findById(id).get();
-        return categoria;
+        Optional<Categoria> categoria = categoriaRepository.findById(id);
+        return categoria.orElseThrow(() -> new ResourceNotFoundException("Objeto não encontrado! Id: " + id + " Tipo: " + Categoria.class.getName()));
     }
 }

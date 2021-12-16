@@ -1,5 +1,7 @@
 package br.com.udemy.Spring.FullStack.domain;
 
+import br.com.udemy.Spring.FullStack.domain.enums.Natureza;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,29 +23,23 @@ public class Cliente {
     private String cpf;
     private String cnpj;
     
-    @ManyToOne
-    @JoinColumn(name = "tipo_id")
-    private Tipo tipo;
-    
     @OneToMany(mappedBy = "telefone", cascade = CascadeType.ALL)
     private List<Telefone> listaTelefones = new ArrayList<>();
     
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> listaEnderecos = new ArrayList<>();
 
-    public Cliente(String nome, String email, Natureza natureza, Tipo tipo) {
+    public Cliente(String nome, String email, Natureza natureza) {
         this.nome = nome;
         this.email = email;
         this.natureza = natureza;
-        this.tipo = tipo;
     }
 
-    public Cliente(String nome, String email, Natureza natureza, String cpf, Tipo tipo) {
+    public Cliente(String nome, String email, Natureza natureza, String cpf) {
         this.nome = nome;
         this.email = email;
         this.natureza = natureza;
         this.cpf = cpf;
-        this.tipo = tipo;
     }
     
     public Integer getId() {
@@ -78,10 +74,6 @@ public class Cliente {
         return cnpj;
     }
 
-    public Tipo getTipo() {
-        return tipo;
-    }
-
     public List<Telefone> getListaTelefones() {
         return listaTelefones;
     }
@@ -99,7 +91,6 @@ public class Cliente {
                 ", natureza=" + natureza +
                 ", cpf='" + cpf + '\'' +
                 ", cnpj='" + cnpj + '\'' +
-                ", tipo=" + tipo +
                 '}';
     }
 
