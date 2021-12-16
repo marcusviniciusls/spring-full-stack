@@ -5,15 +5,11 @@ import br.com.udemy.Spring.FullStack.domain.enums.Natureza;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Table
 @Entity(name = "cliente")
-public class Cliente {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Cliente extends SuperEntidade{
+
     private String nome;
     private String email;
     
@@ -40,10 +36,6 @@ public class Cliente {
         this.email = email;
         this.natureza = natureza;
         this.cpf = cpf;
-    }
-    
-    public Integer getId() {
-        return id;
     }
 
     public String getNome() {
@@ -85,25 +77,13 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
+                "nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", natureza=" + natureza +
                 ", cpf='" + cpf + '\'' +
                 ", cnpj='" + cnpj + '\'' +
+                ", listaTelefones=" + listaTelefones +
+                ", listaEnderecos=" + listaEnderecos +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cliente cliente = (Cliente) o;
-        return Objects.equals(id, cliente.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

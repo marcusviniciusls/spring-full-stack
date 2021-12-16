@@ -3,15 +3,11 @@ package br.com.udemy.Spring.FullStack.domain;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Table
 @Entity(name = "enderecos")
-public class Endereco {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Endereco extends SuperEntidade{
+
     private String logadouro;
     private String numero;
     private String complemento;
@@ -47,10 +43,6 @@ public class Endereco {
     }
     
     public Endereco (){}
-
-    public Integer getId() {
-        return id;
-    }
 
     public String getLogadouro() {
         return logadouro;
@@ -91,26 +83,14 @@ public class Endereco {
     @Override
     public String toString() {
         return "Endereco{" +
-                "id=" + id +
-                ", logadouro='" + logadouro + '\'' +
+                "logadouro='" + logadouro + '\'' +
                 ", numero='" + numero + '\'' +
                 ", complemento='" + complemento + '\'' +
                 ", bairro='" + bairro + '\'' +
                 ", cep='" + cep + '\'' +
                 ", cidade=" + cidade +
+                ", cliente=" + cliente +
+                ", listaPedidos=" + listaPedidos +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Endereco endereco = (Endereco) o;
-        return Objects.equals(id, endereco.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

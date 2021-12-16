@@ -5,11 +5,8 @@ import java.util.Objects;
 
 @Table
 @Entity(name = "cidades")
-public class Cidade {
+public class Cidade extends SuperEntidade{
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
     private String nome;
     
     @ManyToOne
@@ -23,10 +20,6 @@ public class Cidade {
     
     public Cidade(){}
 
-    public Integer getId() {
-        return id;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -38,22 +31,9 @@ public class Cidade {
     @Override
     public String toString() {
         return "Cidade{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
+                "nome='" + nome + '\'' +
                 ", estado=" + estado +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cidade cidade = (Cidade) o;
-        return Objects.equals(id, cidade.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    
 }

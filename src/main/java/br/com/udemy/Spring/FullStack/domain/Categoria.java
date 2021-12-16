@@ -1,20 +1,19 @@
 package br.com.udemy.Spring.FullStack.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Table
 @Entity(name = "categories")
-public class Categoria {
+public class Categoria extends SuperEntidade{
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
     private String nome;
 
     @JsonIgnore
@@ -26,10 +25,6 @@ public class Categoria {
     }
     
     public Categoria(){}
-
-    public Integer getId() {
-        return id;
-    }
 
     public String getNome() {
         return nome;
@@ -48,19 +43,19 @@ public class Categoria {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Categoria categoria = (Categoria) o;
-        return id.equals(categoria.id);
+        return Objects.equals(nome, categoria.nome) && Objects.equals(listaProdutos, categoria.listaProdutos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(nome);
     }
 
     @Override
     public String toString() {
         return "Categoria{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
+                "nome='" + nome + '\'' +
+                ", listaProdutos=" + listaProdutos +
                 '}';
     }
 }

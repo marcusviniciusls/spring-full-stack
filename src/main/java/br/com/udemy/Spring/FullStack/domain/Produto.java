@@ -4,15 +4,11 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Table
 @Entity(name = "produtos")
-public class Produto {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Produto extends SuperEntidade{
+
     private String nome;
     private BigDecimal preco;
     
@@ -37,10 +33,6 @@ public class Produto {
     
     public Produto(){}
 
-    public Integer getId() {
-        return id;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -64,23 +56,10 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
+                "nome='" + nome + '\'' +
                 ", preco=" + preco +
                 ", categoria=" + categoria +
+                ", listaItemPedido=" + listaItemPedido +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Produto produto = (Produto) o;
-        return Objects.equals(id, produto.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

@@ -1,15 +1,14 @@
 package br.com.udemy.Spring.FullStack.domain;
 
-import javax.persistence.*;
-import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Table
 @Entity(name = "telefones")
-public class Telefone {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Telefone extends SuperEntidade{
+
     private String ddd;
     private String telefone;
     
@@ -24,10 +23,6 @@ public class Telefone {
     
     public Telefone(){}
 
-    public Integer getId() {
-        return id;
-    }
-
     public String getDdd() {
         return ddd;
     }
@@ -39,22 +34,9 @@ public class Telefone {
     @Override
     public String toString() {
         return "Telefone{" +
-                "id=" + id +
-                ", ddd='" + ddd + '\'' +
+                "ddd='" + ddd + '\'' +
                 ", telefone='" + telefone + '\'' +
+                ", cliente=" + cliente +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Telefone telefone = (Telefone) o;
-        return Objects.equals(id, telefone.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

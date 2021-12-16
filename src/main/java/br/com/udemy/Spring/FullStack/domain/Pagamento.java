@@ -7,11 +7,8 @@ import javax.persistence.*;
 @Table
 @Entity(name = "pagamentos")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pagamento {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public abstract class Pagamento extends SuperEntidade{
+
     @Enumerated(EnumType.ORDINAL)
     private EstadoPagamento estadoPagamento;
 
@@ -25,15 +22,19 @@ public abstract class Pagamento {
         this.pedido = pedido;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     public EstadoPagamento getEstadoPagamento() {
         return estadoPagamento;
     }
 
     public Pedido getPedido() {
         return pedido;
+    }
+
+    @Override
+    public String toString() {
+        return "Pagamento{" +
+                "estadoPagamento=" + estadoPagamento +
+                ", pedido=" + pedido +
+                '}';
     }
 }
