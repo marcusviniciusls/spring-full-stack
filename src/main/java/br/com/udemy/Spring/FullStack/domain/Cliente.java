@@ -25,17 +25,18 @@ public class Cliente extends SuperEntidade{
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> listaEnderecos = new ArrayList<>();
 
-    public Cliente(String nome, String email, Natureza natureza) {
+    public Cliente(String nome, String email, int value, String cpf) {
         this.nome = nome;
         this.email = email;
-        this.natureza = natureza;
+        this.natureza = Natureza.toEnum(value);
+        this.cpf = cpf;
     }
 
-    public Cliente(String nome, String email, Natureza natureza, String cpf) {
+    public Cliente(String nome, String email, int value, String cnpj) {
         this.nome = nome;
         this.email = email;
-        this.natureza = natureza;
-        this.cpf = cpf;
+        this.natureza = Natureza.toEnum(value);
+        this.cnpj = cnpj;
     }
 
     public String getNome() {

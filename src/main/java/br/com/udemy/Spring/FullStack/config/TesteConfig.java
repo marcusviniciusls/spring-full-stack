@@ -1,13 +1,8 @@
 package br.com.udemy.Spring.FullStack.config;
 
-import br.com.udemy.Spring.FullStack.domain.Categoria;
-import br.com.udemy.Spring.FullStack.domain.Cidade;
-import br.com.udemy.Spring.FullStack.domain.Estado;
-import br.com.udemy.Spring.FullStack.domain.Produto;
-import br.com.udemy.Spring.FullStack.repositorys.CategoriaRepository;
-import br.com.udemy.Spring.FullStack.repositorys.CidadeRepository;
-import br.com.udemy.Spring.FullStack.repositorys.EstadoRepository;
-import br.com.udemy.Spring.FullStack.repositorys.ProdutoRepository;
+import br.com.udemy.Spring.FullStack.domain.*;
+import br.com.udemy.Spring.FullStack.domain.enums.Natureza;
+import br.com.udemy.Spring.FullStack.repositorys.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +26,12 @@ public class TesteConfig implements CommandLineRunner {
     
     @Autowired
     private EstadoRepository estadoRepository;
+    
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+    
+    @Autowired
+    private TelefoneRepository telefoneRepository;
     
     @Override
     public void run(String... args) throws Exception {
@@ -68,9 +69,20 @@ public class TesteConfig implements CommandLineRunner {
         Cidade cidade6 = new Cidade("Volta Redonda", estado2);
         Cidade cidade7 = new Cidade("Sobral", estado1);
         Cidade cidade8 = new Cidade("Fortaleza", estado1);
-        cidadeRepository.saveAll(Arrays.asList(cidade,cidade1,cidade2,cidade3,cidade4,cidade5,cidade6,cidade7,cidade8));
+        cidadeRepository.saveAll(Arrays.asList(cidade,cidade1,cidade2,cidade3,cidade4,cidade5,cidade6,cidade7,cidade8,cidade9));
         
+        // Criação de Endereço
+        Endereco endereco = new Endereco("Rua Caetano Basso","252","Parque Savoi City","03584-130",cidade);
+        Endereco endereco1 = new Endereco("Rua Piquinhu","227","Vila Ré","03657-010",cidade);
+        Endereco endereco2 = new Endereco("Rua Bernado","100","Sé","00000-100",cidade1);
+        enderecoRepository.saveAll(Arrays.asList(endereco,endereco1,endereco2));
         
+        // Criação de Telefones
+        Telefone telefone = new Telefone("11","99352-7709");
+        Telefone telefone1 = new Telefone("11","98934-7080");
+        Telefone telefone2 = new Telefone("21","3569-0873");
+        telefoneRepository.saveAll(Arrays.asList(telefone,telefone1,telefone2));
         
+        Cliente cliente = new Cliente("Marcus Vinicius","viniciusmls@outlook.com", Natureza.PESSOA_FISICA.getValor(), "467518998-90");
     }
 }
