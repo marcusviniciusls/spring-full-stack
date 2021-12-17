@@ -4,6 +4,8 @@ import br.com.udemy.Spring.FullStack.domain.Categoria;
 import br.com.udemy.Spring.FullStack.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.UUID;
+
 public class CategoriaDto {
     
     @Autowired
@@ -23,7 +25,7 @@ public class CategoriaDto {
         this.categoria = categoria;
     }
     
-    public String converteCategoriaToCategoriaDto(Integer id){
+    public String converteCategoriaToCategoriaDto(UUID id){
         this.categoria = categoriaService.buscarCategoria(id).getNome();
         return this.categoria;
     }

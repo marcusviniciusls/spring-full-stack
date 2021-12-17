@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(value="categories")
 public class CategoriaResource {
@@ -17,8 +19,9 @@ public class CategoriaResource {
     private CategoriaService categoriaService;
     
     @GetMapping(value = "/{id}")
-    public ResponseEntity<?> buscarCategoriPorId(@PathVariable Integer id){
+    public ResponseEntity<?> buscarCategoriPorId(@PathVariable UUID id){
         Categoria categoria = categoriaService.buscarCategoria(id);
         return ResponseEntity.ok().body(categoria);
     }
 }
+                                                                                                     

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CategoriaService {
@@ -15,7 +16,7 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
     
-    public Categoria buscarCategoria(Integer id){
+    public Categoria buscarCategoria(UUID id){
         Optional<Categoria> categoria = categoriaRepository.findById(id);
         return categoria.orElseThrow(() -> new ResourceNotFoundException("Objeto não encontrado! Id: " + id + " Tipo: " + Categoria.class.getName()));
     }
