@@ -5,10 +5,11 @@ import br.com.udemy.Spring.FullStack.dto.ClienteDto;
 import br.com.udemy.Spring.FullStack.exception.ResourceNotFoundException;
 import br.com.udemy.Spring.FullStack.factory.ClienteBusinessRule;
 import br.com.udemy.Spring.FullStack.repositorys.ClienteRepository;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,5 +28,15 @@ public class ClienteService {
         ClienteBusinessRule clienteBusinessRule = new ClienteBusinessRule();
         
         return clienteBusinessRule.convertClientDto(cliente);
+    }
+    
+    public List<ClienteDto> findByAll(){
+        List<Cliente> listCliente = clienteRepository.findAll();
+        List<ClienteDto> listClienteDto = new ArrayList<>();
+        ClienteBusinessRule clienteBusinessRule = new ClienteBusinessRule();
+        for (Cliente cliente : listCliente){
+            listClienteDto.add(clienteBusinessRule.convertClientDto(cliente));    
+        }
+        return listClienteDto;
     }
 }

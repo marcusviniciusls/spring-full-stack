@@ -1,8 +1,8 @@
 package br.com.udemy.Spring.FullStack.domain.enums;
 
 public enum Natureza {    
-    PESSOA_FISICA(1),
-    PESSOA_JURIDICA(2);
+    PESSOA_FISICA(0),
+    PESSOA_JURIDICA(1);
     
     private int valor;
 

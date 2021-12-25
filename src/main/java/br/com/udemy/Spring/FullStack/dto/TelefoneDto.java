@@ -17,4 +17,12 @@ public class TelefoneDto {
     public String getTelefone() {
         return telefone;
     }
+
+    @Override
+    public String toString() {
+        return "TelefoneDto{" +
+                "ddd='" + ddd + '\'' +
+                ", telefone='" + telefone + '\'' +
+                '}';
+    }
 }

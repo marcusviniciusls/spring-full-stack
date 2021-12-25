@@ -29,9 +29,9 @@ public class ClienteBusinessRule {
     }
     
     private void setNaturezaCPFouCNPJ(ClienteDto clienteDto, Cliente cliente){
-        if (clienteDto.getCnpj().equals(Natureza.PESSOA_FISICA)){
+        if (cliente.getNatureza() == Natureza.PESSOA_FISICA){
             clienteDto.setCpf(cliente.getCpf());
-        } if (clienteDto.getCpf().equals(Natureza.PESSOA_JURIDICA)){
+        } else if (cliente.getNatureza() == Natureza.PESSOA_JURIDICA){
             clienteDto.setCnpj(cliente.getCnpj());
         } else {
             throw new InvalidNatureCustomer("Invalid Nature Customer");

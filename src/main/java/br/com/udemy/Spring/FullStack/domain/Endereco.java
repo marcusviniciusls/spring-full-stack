@@ -80,6 +80,10 @@ public class Endereco extends SuperEntidade{
         this.listaPedidos.add(pedido);
     }
 
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     @Override
     public String toString() {
         return "Endereco{" +

@@ -37,4 +37,14 @@ public class SuperEntidade {
     public boolean isAtivo() {
         return ativo;
     }
+
+    @Override
+    public String toString() {
+        return "SuperEntidade{" +
+                "uuid=" + uuid +
+                ", dataCriacao=" + dataCriacao +
+                ", dataAtualizacao=" + dataAtualizacao +
+                ", ativo=" + ativo +
+                '}';
+    }
 }

@@ -31,6 +31,14 @@ public class Telefone extends SuperEntidade{
         return telefone;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     @Override
     public String toString() {
         return "Telefone{" +

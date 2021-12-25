@@ -1,6 +1,8 @@
 package br.com.udemy.Spring.FullStack.domain;
 
 import br.com.udemy.Spring.FullStack.domain.enums.Natureza;
+import br.com.udemy.Spring.FullStack.exception.InvalidNatureCustomer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,25 +21,21 @@ public class Cliente extends SuperEntidade{
     private String cpf;
     private String cnpj;
     
-    @OneToMany(mappedBy = "telefone", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Telefone> listaTelefones = new ArrayList<>();
     
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Endereco> listaEnderecos = new ArrayList<>();
 
-    public Cliente(String nome, String email, int value, String cpf) {
+    public Cliente(String nome, String email, Integer value, String cpfOuCnpj) {
         this.nome = nome;
         this.email = email;
         this.natureza = Natureza.toEnum(value);
-        this.cpf = cpf;
+        verificarCpfOuCnpj(value,cpfOuCnpj);
+        setNatureza(value);
     }
-
-    public Cliente(String nome, String email, int value, String cnpj) {
-        this.nome = nome;
-        this.email = email;
-        this.natureza = Natureza.toEnum(value);
-        this.cnpj = cnpj;
-    }
+    
+    public Cliente(){}
 
     public String getNome() {
         return nome;
@@ -75,16 +73,23 @@ public class Cliente extends SuperEntidade{
         return listaEnderecos;
     }
 
-    @Override
-    public String toString() {
-        return "Cliente{" +
-                "nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", natureza=" + natureza +
-                ", cpf='" + cpf + '\'' +
-                ", cnpj='" + cnpj + '\'' +
-                ", listaTelefones=" + listaTelefones +
-                ", listaEnderecos=" + listaEnderecos +
-                '}';
+
+    private void verificarCpfOuCnpj(Integer value, String cpfOuCnpj){
+        if (value == 0){
+            this.cpf = cpfOuCnpj;
+        } else if (value ==1) {
+            this.cnpj = cpfOuCnpj;    
+        } else {
+            throw new InvalidNatureCustomer("CPF ou CNPJ invaĺido");
+        }
     }
+    
+    private void setNatureza(Integer value){
+        if (value == 0){
+            this.natureza = Natureza.PESSOA_FISICA;
+        } if (value == 1){
+            this.natureza = Natureza.PESSOA_JURIDICA;
+        }
+    }
+    
 }

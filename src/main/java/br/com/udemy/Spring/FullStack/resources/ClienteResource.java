@@ -20,8 +20,14 @@ public class ClienteResource {
     private ClienteService clienteService;
     
     @GetMapping(value = "/{id}")
-    public ResponseEntity<List<ClienteDto>> findByCliente(@PathVariable UUID id){
-        List<ClienteDto> listClientDto = (List<ClienteDto>) clienteService.findById(id);
-        return ResponseEntity.ok().body(listClientDto);
+    public ResponseEntity<ClienteDto> findByCliente(@PathVariable UUID id){
+        ClienteDto clientDto = clienteService.findById(id);
+        return ResponseEntity.ok().body(clientDto);
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<ClienteDto>> findByAllCliente(){
+        List<ClienteDto> listClienteDto = clienteService.findByAll();
+        return ResponseEntity.ok().body(listClienteDto);
     }
 }

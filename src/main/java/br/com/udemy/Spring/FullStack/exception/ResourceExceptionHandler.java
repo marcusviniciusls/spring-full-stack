@@ -1,6 +1,5 @@
 package br.com.udemy.Spring.FullStack.exception;
 
-import br.com.udemy.Spring.FullStack.services.exception.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

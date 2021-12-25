@@ -35,4 +35,15 @@ public class EnderecoDto {
     public String getCep() {
         return cep;
     }
+
+    @Override
+    public String toString() {
+        return "EnderecoDto{" +
+                "logadouro='" + logadouro + '\'' +
+                ", numero='" + numero + '\'' +
+                ", complemento='" + complemento + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", cep='" + cep + '\'' +
+                '}';
+    }
 }

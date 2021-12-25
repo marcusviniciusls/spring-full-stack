@@ -72,4 +72,17 @@ public class ClienteDto {
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
+
+    @Override
+    public String toString() {
+        return "ClienteDto{" +
+                "nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", natureza=" + natureza +
+                ", cpf='" + cpf + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                ", listTelefones=" + listTelefones +
+                ", listEnderecos=" + listEnderecos +
+                '}';
+    }
 }
