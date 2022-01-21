@@ -10,7 +10,8 @@ public class CategoriaDto {
     
     @Autowired
     private CategoriaService categoriaService;
-    
+
+    private UUID id;
     private String categoria;
 
     public CategoriaDto(String categoria) {
@@ -24,9 +25,14 @@ public class CategoriaDto {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-    
-    public String converteCategoriaToCategoriaDto(UUID id){
-        this.categoria = categoriaService.buscarCategoria(id).getNome();
-        return this.categoria;
+
+    public UUID getId() {
+        return id;
     }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+
 }
