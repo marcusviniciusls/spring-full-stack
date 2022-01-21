@@ -1,5 +1,7 @@
 package br.com.udemy.Spring.FullStack.domain;
 
+import br.com.udemy.Spring.FullStack.dto.EnderecoDto;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,6 +21,10 @@ public class Pedido extends SuperEntidade{
     private Endereco endereco;
     
     public Pedido(){}
+
+    public Pedido(Endereco endereco) {
+        this.endereco = endereco;
+    }
 
     public LocalDate getData() {
         return data;

@@ -16,6 +16,8 @@ public class EnderecoDto {
         this.cep = cep;
     }
 
+    public EnderecoDto(){}
+
     public String getLogadouro() {
         return logadouro;
     }
@@ -34,6 +36,26 @@ public class EnderecoDto {
 
     public String getCep() {
         return cep;
+    }
+
+    public void setLogadouro(String logadouro) {
+        this.logadouro = logadouro;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     @Override

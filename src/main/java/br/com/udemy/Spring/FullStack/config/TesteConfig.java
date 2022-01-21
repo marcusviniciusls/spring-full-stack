@@ -37,6 +37,12 @@ public class TesteConfig implements CommandLineRunner {
     
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
     
     @Override
     public void run(String... args) throws Exception {
@@ -104,9 +110,21 @@ public class TesteConfig implements CommandLineRunner {
         telefone1.setCliente(cliente);
         telefone2.setCliente(cliente1);
 
+        ItemPedido itemPedido = new ItemPedido(new BigDecimal("100.00"), 3, new BigDecimal("500"));
+        itemPedido.setProduto(produto);
+
+        Pedido pedido = new Pedido(endereco);
+
+        pedido.addListaItemPedidos(itemPedido);
+        itemPedido.setPedido(pedido);
+
         clienteRepository.saveAll(Arrays.asList(cliente1,cliente));
         telefoneRepository.saveAll(Arrays.asList(telefone,telefone1,telefone2));
         enderecoRepository.saveAll(Arrays.asList(endereco,endereco1,endereco2));
+        pedidoRepository.save(pedido);
+        itemPedidoRepository.save(itemPedido);
+
+
         
     }
 }

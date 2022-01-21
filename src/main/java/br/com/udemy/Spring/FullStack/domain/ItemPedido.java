@@ -58,6 +58,14 @@ public class ItemPedido extends SuperEntidade {
         return produto;
     }
 
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
     @Override
     public String toString() {
         return "ItemPedido{" +

@@ -1,5 +1,7 @@
 package br.com.udemy.Spring.FullStack.domain;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
@@ -10,6 +12,7 @@ import java.util.UUID;
 public class SuperEntidade {
     
     @Id
+    @Type(type="org.hibernate.type.UUIDCharType")
     private UUID uuid;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
