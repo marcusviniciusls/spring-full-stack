@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,6 +19,12 @@ public class CategoriaResource {
     
     @Autowired
     private CategoriaService categoriaService;
+
+    @GetMapping
+    public ResponseEntity<List<CategoriaDto>> findByAll(){
+        List<CategoriaDto> listCategoriaDto = categoriaService.findAll();
+        return ResponseEntity.ok().body(listCategoriaDto);
+    }
     
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> buscarCategoriPorId(@PathVariable UUID id){
@@ -43,5 +50,6 @@ public class CategoriaResource {
         categoriaService.deletarCategoriaId(id);
         return ResponseEntity.ok().build();
     }
+
 }
                                                                                                      

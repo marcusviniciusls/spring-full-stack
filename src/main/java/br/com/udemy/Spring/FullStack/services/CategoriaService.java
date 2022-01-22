@@ -10,8 +10,10 @@ import br.com.udemy.Spring.FullStack.repositorys.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoriaService {
@@ -48,5 +50,12 @@ public class CategoriaService {
 
     public void deletarCategoriaId(UUID id){
         categoriaRepository.deleteById(id);
+    }
+
+    public List<CategoriaDto> findAll(){
+        List<Categoria> listCategoria = categoriaRepository.findAll();
+        List<CategoriaDto> listCategoriaDto =
+                listCategoria.stream().map(CategoriaBusinessRule::convertCategoriaInCategoriaDto).collect(Collectors.toList());
+        return listCategoriaDto;
     }
 }
