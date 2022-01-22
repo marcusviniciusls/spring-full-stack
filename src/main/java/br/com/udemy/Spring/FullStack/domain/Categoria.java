@@ -16,7 +16,7 @@ public class Categoria extends SuperEntidade{
     
     private String nome;
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.PERSIST)
     private List<Produto> listaProdutos = new ArrayList<>();
     
     public Categoria(String nome) {

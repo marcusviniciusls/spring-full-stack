@@ -18,5 +18,12 @@ public class ResourceExceptionHandler {
         StandardError erro = new StandardError(Instant.now(), httpStatus.value(), error, resourceNotFoundException.getMessage(), httpServletRequest.getRequestURI());
         return ResponseEntity.status(httpStatus).body(erro);
     }
-    
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<StandardError> exceptionErrorDefault(Exception exception, HttpServletRequest httpServletRequest) {
+       String error = "Exception Error Default";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError erro = new StandardError(Instant.now(), httpStatus.value(), error, exception.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(erro);
+    }
 }

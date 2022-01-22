@@ -37,5 +37,11 @@ public class CategoriaResource {
         categoriaService.atualizarCategoria(id,categoriaRefresh);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deleterPorId(@PathVariable UUID id){
+        categoriaService.deletarCategoriaId(id);
+        return ResponseEntity.ok().build();
+    }
 }
                                                                                                      

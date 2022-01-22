@@ -45,4 +45,8 @@ public class CategoriaService {
         Categoria categoriaSalvar = CategoriaBusinessRule.atualizarCategoria(categoria, categoriaRefresh);
         categoriaRepository.save(categoriaSalvar);
     }
+
+    public void deletarCategoriaId(UUID id){
+        categoriaRepository.deleteById(id);
+    }
 }
