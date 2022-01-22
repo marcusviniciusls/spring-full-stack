@@ -4,12 +4,11 @@ import br.com.udemy.Spring.FullStack.domain.Categoria;
 import br.com.udemy.Spring.FullStack.dto.CategoriaDto;
 import br.com.udemy.Spring.FullStack.exception.ResourceNotFoundException;
 import br.com.udemy.Spring.FullStack.factory.CategoriaBusinessRule;
-import br.com.udemy.Spring.FullStack.form.CategoriaForm;
+import br.com.udemy.Spring.FullStack.form.atualizar.CategoriaRefresh;
+import br.com.udemy.Spring.FullStack.form.salvar.CategoriaForm;
 import br.com.udemy.Spring.FullStack.repositorys.CategoriaRepository;
-import br.com.udemy.Spring.FullStack.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -35,5 +34,15 @@ public class CategoriaService {
         Categoria categoria = CategoriaBusinessRule.convertCategoriaFormInCategoria(categoriaForm);
         categoriaRepository.save(categoria);
         return CategoriaBusinessRule.convertCategoriaInCategoriaDto(categoria);
+    }
+
+    public void atualizarCategoria(UUID id, CategoriaRefresh categoriaRefresh){
+        Optional<Categoria> optionalCategoria = categoriaRepository.findById(id);
+        if (optionalCategoria.isEmpty()){
+            throw new ResourceNotFoundException("Categoria Não Encontrada");
+        }
+        Categoria categoria = optionalCategoria.get();
+        Categoria categoriaSalvar = CategoriaBusinessRule.atualizarCategoria(categoria, categoriaRefresh);
+        categoriaRepository.save(categoriaSalvar);
     }
 }

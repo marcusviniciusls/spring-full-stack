@@ -4,7 +4,8 @@ import br.com.udemy.Spring.FullStack.domain.Categoria;
 import br.com.udemy.Spring.FullStack.domain.Produto;
 import br.com.udemy.Spring.FullStack.dto.CategoriaDto;
 import br.com.udemy.Spring.FullStack.dto.ProdutoDto;
-import br.com.udemy.Spring.FullStack.form.CategoriaForm;
+import br.com.udemy.Spring.FullStack.form.atualizar.CategoriaRefresh;
+import br.com.udemy.Spring.FullStack.form.salvar.CategoriaForm;
 
 import java.util.List;
 
@@ -27,5 +28,10 @@ public class CategoriaBusinessRule {
         }
 
         return categoriaDto;
+    }
+
+    public static Categoria atualizarCategoria(Categoria categoriaBanco, CategoriaRefresh categoriaNova){
+        categoriaBanco.setNome(categoriaNova.getNomeCategoria());
+        return categoriaBanco;
     }
 }
