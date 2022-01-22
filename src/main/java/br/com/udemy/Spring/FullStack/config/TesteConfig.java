@@ -52,8 +52,25 @@ public class TesteConfig implements CommandLineRunner {
         Categoria categoria1 = new Categoria("Escritório");
         Categoria categoria2 = new Categoria("Elétrico");
         Categoria categoria3 = new Categoria("Vestuário");
-        Categoria categoria4 = new Categoria("Biblioteca");        
-        categoriaRepository.saveAll(Arrays.asList(categoria,categoria1,categoria2,categoria3,categoria4));
+        Categoria categoria4 = new Categoria("Biblioteca");
+        Categoria categoria5 = new Categoria("Informática");
+        Categoria categoria6 = new Categoria("Escritório");
+        Categoria categoria7 = new Categoria("Elétrico");
+        Categoria categoria8 = new Categoria("Vestuário");
+        Categoria categoria9 = new Categoria("Biblioteca");
+        Categoria categoria10 = new Categoria("Informática");
+        Categoria categoria11 = new Categoria("Escritório");
+        Categoria categoria12 = new Categoria("Elétrico");
+        Categoria categoria13 = new Categoria("Vestuário");
+        Categoria categoria14 = new Categoria("Biblioteca");
+        Categoria categoria15 = new Categoria("Informática");
+        Categoria categoria16 = new Categoria("Escritório");
+        Categoria categoria17 = new Categoria("Elétrico");
+        Categoria categoria18 = new Categoria("Vestuário");
+        Categoria categoria19 = new Categoria("Biblioteca");
+        categoriaRepository.saveAll(Arrays.asList(categoria,categoria1,categoria2,categoria3,categoria4,
+                categoria5,categoria6,categoria7,categoria8,categoria9,categoria10,categoria11,categoria12,
+                categoria13,categoria14,categoria15,categoria16,categoria17,categoria18,categoria19));
         
         // Criação de Produtos
         Produto produto = new Produto("Harry Potter e a Pedra FIlosofal",new BigDecimal("50.99"), categoria4);

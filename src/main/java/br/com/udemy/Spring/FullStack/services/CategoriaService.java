@@ -8,6 +8,10 @@ import br.com.udemy.Spring.FullStack.form.atualizar.CategoriaRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.CategoriaForm;
 import br.com.udemy.Spring.FullStack.repositorys.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,10 +56,10 @@ public class CategoriaService {
         categoriaRepository.deleteById(id);
     }
 
-    public List<CategoriaDto> findAll(){
-        List<Categoria> listCategoria = categoriaRepository.findAll();
-        List<CategoriaDto> listCategoriaDto =
-                listCategoria.stream().map(CategoriaBusinessRule::convertCategoriaInCategoriaDto).collect(Collectors.toList());
+    public Page<CategoriaDto> findAll(Integer page, Integer linesPerPage, String orderBy, String direction){
+        Pageable pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+        Page<Categoria> listCategoria = categoriaRepository.findAll(pageRequest);
+        Page<CategoriaDto> listCategoriaDto = listCategoria.map(CategoriaBusinessRule::convertCategoriaInCategoriaDto);
         return listCategoriaDto;
     }
 }

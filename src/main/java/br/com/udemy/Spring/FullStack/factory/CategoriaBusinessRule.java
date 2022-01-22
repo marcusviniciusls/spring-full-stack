@@ -6,6 +6,7 @@ import br.com.udemy.Spring.FullStack.dto.CategoriaDto;
 import br.com.udemy.Spring.FullStack.dto.ProdutoDto;
 import br.com.udemy.Spring.FullStack.form.atualizar.CategoriaRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.CategoriaForm;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -26,7 +27,6 @@ public class CategoriaBusinessRule {
             ProdutoDto produtoDto = ProdutoBusinessRule.convertProdutoInProdutoDto(produto);
             categoriaDto.addListProdutoDto(produtoDto);
         }
-
         return categoriaDto;
     }
 

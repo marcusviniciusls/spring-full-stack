@@ -5,6 +5,7 @@ import br.com.udemy.Spring.FullStack.form.atualizar.CategoriaRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.CategoriaForm;
 import br.com.udemy.Spring.FullStack.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -21,11 +22,15 @@ public class CategoriaResource {
     private CategoriaService categoriaService;
 
     @GetMapping
-    public ResponseEntity<List<CategoriaDto>> findByAll(){
-        List<CategoriaDto> listCategoriaDto = categoriaService.findAll();
+    public ResponseEntity<Page<CategoriaDto>>
+    findByAll(@RequestParam(value="page", defaultValue = "0") Integer page,
+              @RequestParam(value="linesPerPage", defaultValue = "10") Integer linesPerPage,
+              @RequestParam(value="orderBy", defaultValue = "nome") String orderBy,
+                      @RequestParam(value="direction", defaultValue = "DESC") String direction){
+        Page<CategoriaDto> listCategoriaDto = categoriaService.findAll(page,linesPerPage,orderBy,direction);
         return ResponseEntity.ok().body(listCategoriaDto);
     }
-    
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> buscarCategoriPorId(@PathVariable UUID id){
         CategoriaDto categoriaDto = categoriaService.buscarCategoria(id);
