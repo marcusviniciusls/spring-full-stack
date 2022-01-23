@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
@@ -38,14 +39,14 @@ public class CategoriaResource {
     }
 
     @PostMapping
-    public ResponseEntity<CategoriaDto> salvarCategoria(@RequestBody CategoriaForm categoriaForm, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<CategoriaDto> salvarCategoria(@Valid @RequestBody CategoriaForm categoriaForm, UriComponentsBuilder uriComponentsBuilder){
         CategoriaDto categoriaDto = categoriaService.salvarCategoria(categoriaForm);
         URI uri = uriComponentsBuilder.path("/categoria/{id}").buildAndExpand(categoriaDto.getCategoria()).toUri();
         return ResponseEntity.created(uri).body(categoriaDto);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> atualizarCategoriaId(@PathVariable UUID id, @RequestBody CategoriaRefresh categoriaRefresh){
+    public ResponseEntity<?> atualizarCategoriaId(@PathVariable UUID id,@Valid @RequestBody CategoriaRefresh categoriaRefresh){
         categoriaService.atualizarCategoria(id,categoriaRefresh);
         return ResponseEntity.noContent().build();
     }

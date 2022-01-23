@@ -1,12 +1,13 @@
 package br.com.udemy.Spring.FullStack.form.salvar;
 
-import com.sun.istack.NotNull;
-import org.hibernate.annotations.NotFound;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
 
 public class CategoriaForm {
 
-    @NotNull
-    @NotFound
+    @NotEmpty(message = "Nome não pode ser nulo")
+    @Length(min = 5, message = "Tamanho minimo 5 caracteres")
     private String nome;
 
     public CategoriaForm(String nome) {
