@@ -6,6 +6,10 @@ import br.com.udemy.Spring.FullStack.exception.ResourceNotFoundException;
 import br.com.udemy.Spring.FullStack.factory.ClienteBusinessRule;
 import br.com.udemy.Spring.FullStack.repositorys.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,13 +34,10 @@ public class ClienteService {
         return clienteBusinessRule.convertClientDto(cliente);
     }
     
-    public List<ClienteDto> findByAll(){
-        List<Cliente> listCliente = clienteRepository.findAll();
-        List<ClienteDto> listClienteDto = new ArrayList<>();
-        ClienteBusinessRule clienteBusinessRule = new ClienteBusinessRule();
-        for (Cliente cliente : listCliente){
-            listClienteDto.add(clienteBusinessRule.convertClientDto(cliente));    
-        }
+    public Page<ClienteDto> findByAll(Integer page, Integer linesPerPage, String orderBy, String direction){
+        Pageable pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+        Page<Cliente> listCliente = clienteRepository.findAll(pageRequest);
+        Page<ClienteDto> listClienteDto = listCliente.map(ClienteBusinessRule::convertClientDto);
         return listClienteDto;
     }
 }

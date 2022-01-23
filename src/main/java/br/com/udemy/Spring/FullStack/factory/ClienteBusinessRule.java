@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ClienteBusinessRule {
     
-    public ClienteDto convertClientDto(Cliente cliente){
+    public static ClienteDto convertClientDto(Cliente cliente){
         ClienteDto clienteDto = new ClienteDto();
         
         clienteDto.setEmail(cliente.getEmail());
@@ -28,7 +28,7 @@ public class ClienteBusinessRule {
         
     }
     
-    private void setNaturezaCPFouCNPJ(ClienteDto clienteDto, Cliente cliente){
+    private static void setNaturezaCPFouCNPJ(ClienteDto clienteDto, Cliente cliente){
         if (cliente.getNatureza() == Natureza.PESSOA_FISICA){
             clienteDto.setCpf(cliente.getCpf());
         } else if (cliente.getNatureza() == Natureza.PESSOA_JURIDICA){
@@ -38,7 +38,7 @@ public class ClienteBusinessRule {
         }
     }
     
-    private List<TelefoneDto> setListTelefone(List<Telefone> listTelefoneCliente){
+    private static List<TelefoneDto> setListTelefone(List<Telefone> listTelefoneCliente){
         List<TelefoneDto> listTelefoneDto = new ArrayList<>();
         for (Telefone telefone : listTelefoneCliente){
             listTelefoneDto.add(convertTelefoneDto(telefone));    
@@ -46,11 +46,11 @@ public class ClienteBusinessRule {
         return listTelefoneDto;
     }
     
-    private TelefoneDto convertTelefoneDto(Telefone telefone){
+    private static TelefoneDto convertTelefoneDto(Telefone telefone){
         return new TelefoneDto(telefone.getDdd(),telefone.getTelefone());
     }
     
-    private List<EnderecoDto> setListEndereco(List<Endereco> listEnderecoCliente){
+    private static List<EnderecoDto> setListEndereco(List<Endereco> listEnderecoCliente){
         List<EnderecoDto> listEnderecoDto = new ArrayList<>();
         for (Endereco endereco : listEnderecoCliente){
             listEnderecoDto.add(convertEnderecoDto(endereco));
@@ -58,7 +58,7 @@ public class ClienteBusinessRule {
         return listEnderecoDto;
     }
     
-    private EnderecoDto convertEnderecoDto(Endereco endereco){
+    private static EnderecoDto convertEnderecoDto(Endereco endereco){
         return new EnderecoDto(endereco.getLogadouro(), endereco.getNumero(), endereco.getComplemento(), endereco.getBairro(), endereco.getCep());
     }
 }
