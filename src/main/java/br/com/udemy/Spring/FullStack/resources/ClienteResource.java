@@ -1,12 +1,17 @@
 package br.com.udemy.Spring.FullStack.resources;
 
 import br.com.udemy.Spring.FullStack.dto.ClienteDto;
+import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
 import br.com.udemy.Spring.FullStack.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,5 +37,11 @@ public class ClienteResource {
     ){
         Page<ClienteDto> listClienteDto = clienteService.findByAll(page,linesPerPage,orderBy,direction);
         return ResponseEntity.ok().body(listClienteDto);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> saveClient(@Valid @RequestBody ClientForm clientForm){
+        clienteService.saveClient(clientForm);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

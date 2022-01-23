@@ -73,7 +73,6 @@ public class Cliente extends SuperEntidade{
         return listaEnderecos;
     }
 
-
     private void verificarCpfOuCnpj(Integer value, String cpfOuCnpj){
         if (value == 0){
             this.cpf = cpfOuCnpj;

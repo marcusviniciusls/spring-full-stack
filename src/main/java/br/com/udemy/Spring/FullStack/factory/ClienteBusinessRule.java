@@ -8,6 +8,7 @@ import br.com.udemy.Spring.FullStack.dto.ClienteDto;
 import br.com.udemy.Spring.FullStack.dto.EnderecoDto;
 import br.com.udemy.Spring.FullStack.dto.TelefoneDto;
 import br.com.udemy.Spring.FullStack.exception.InvalidNatureCustomer;
+import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +61,10 @@ public class ClienteBusinessRule {
     
     private static EnderecoDto convertEnderecoDto(Endereco endereco){
         return new EnderecoDto(endereco.getLogadouro(), endereco.getNumero(), endereco.getComplemento(), endereco.getBairro(), endereco.getCep());
+    }
+
+    public static Cliente convertClientFormInClient(ClientForm clientForm){
+        Cliente cliente = new Cliente(clientForm.getNome(), clientForm.getEmail(), clientForm.getNatureza(), clientForm.getCpfOuCnpj());
+        return cliente;
     }
 }
