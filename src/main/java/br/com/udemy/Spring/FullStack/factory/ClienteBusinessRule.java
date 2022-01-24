@@ -8,8 +8,10 @@ import br.com.udemy.Spring.FullStack.dto.ClienteDto;
 import br.com.udemy.Spring.FullStack.dto.EnderecoDto;
 import br.com.udemy.Spring.FullStack.dto.TelefoneDto;
 import br.com.udemy.Spring.FullStack.exception.InvalidNatureCustomer;
+import br.com.udemy.Spring.FullStack.form.atualizar.ClientRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,5 +68,24 @@ public class ClienteBusinessRule {
     public static Cliente convertClientFormInClient(ClientForm clientForm){
         Cliente cliente = new Cliente(clientForm.getNome(), clientForm.getEmail(), clientForm.getNatureza(), clientForm.getCpfOuCnpj());
         return cliente;
+    }
+
+    public static Cliente refreshClient(Cliente cliente, ClientRefresh clientRefresh){
+        if (clientRefresh.getNome() != null){
+            cliente.setNome(clientRefresh.getNome());
+        } if (clientRefresh.getEmail() != null){
+            cliente.setEmail(clientRefresh.getEmail());
+        } if (clientRefresh.getNatureza() != null){
+            cliente.setNatureza(clientRefresh.getNatureza());
+        } if (clientRefresh.getCpfOuCnpj() != null){
+            cliente.verificarCpfOuCnpjEntidadeCliente(clientRefresh.getCpfOuCnpj());
+        }
+        refreshDataAtualizacao(cliente);
+
+        return cliente;
+    }
+
+    private static void refreshDataAtualizacao(Cliente cliente){
+        cliente.setDataAtualizacao(LocalDateTime.now());
     }
 }

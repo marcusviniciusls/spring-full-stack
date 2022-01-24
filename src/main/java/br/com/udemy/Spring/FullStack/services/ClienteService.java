@@ -4,6 +4,7 @@ import br.com.udemy.Spring.FullStack.domain.Cliente;
 import br.com.udemy.Spring.FullStack.dto.ClienteDto;
 import br.com.udemy.Spring.FullStack.exception.ResourceNotFoundException;
 import br.com.udemy.Spring.FullStack.factory.ClienteBusinessRule;
+import br.com.udemy.Spring.FullStack.form.atualizar.ClientRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
 import br.com.udemy.Spring.FullStack.repositorys.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,15 @@ public class ClienteService {
         Cliente cliente = ClienteBusinessRule.convertClientFormInClient(clientForm);
         clienteRepository.save(cliente);
     }
+
+    public void updateClient(ClientRefresh clientRefresh, UUID id){
+        Optional<Cliente> optionalClient = clienteRepository.findById(id);
+        if (optionalClient.isEmpty()){
+            throw new ResourceNotFoundException("Client Not Found Exception");
+        }
+        Cliente cliente = optionalClient.get();
+        Cliente clienteAtualizado = ClienteBusinessRule.refreshClient(cliente,clientRefresh);
+        clienteRepository.save(clienteAtualizado);
+    }
+
 }

@@ -73,6 +73,14 @@ public class Cliente extends SuperEntidade{
         return listaEnderecos;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     private void verificarCpfOuCnpj(Integer value, String cpfOuCnpj){
         if (value == 0){
             this.cpf = cpfOuCnpj;
@@ -83,12 +91,20 @@ public class Cliente extends SuperEntidade{
         }
     }
     
-    private void setNatureza(Integer value){
+    public void setNatureza(Integer value){
         if (value == 0){
             this.natureza = Natureza.PESSOA_FISICA;
         } if (value == 1){
             this.natureza = Natureza.PESSOA_JURIDICA;
         }
     }
-    
+    public void verificarCpfOuCnpjEntidadeCliente(String cpfOuCnpj){
+        if (Natureza.PESSOA_FISICA.getValor() == 0){
+            this.cpf = cpfOuCnpj;
+        } else if (Natureza.PESSOA_JURIDICA.getValor() == 1) {
+            this.cnpj = cpfOuCnpj;
+        } else {
+            throw new InvalidNatureCustomer("CPF ou CNPJ invaĺido");
+        }
+    }
 }

@@ -41,6 +41,10 @@ public class SuperEntidade {
         return ativo;
     }
 
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
     @Override
     public String toString() {
         return "SuperEntidade{" +
