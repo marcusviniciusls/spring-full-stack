@@ -1,9 +1,7 @@
 package br.com.udemy.Spring.FullStack.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Table
 @Entity(name = "telefones")
@@ -11,7 +9,7 @@ public class Telefone extends SuperEntidade{
 
     private String ddd;
     private String telefone;
-    
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
@@ -32,19 +30,11 @@ public class Telefone extends SuperEntidade{
     }
 
     public Cliente getCliente() {
-        return cliente;
+       return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
+   public void setCliente(Cliente cliente) {
+       this.cliente = cliente;
+   }
 
-    @Override
-    public String toString() {
-        return "Telefone{" +
-                "ddd='" + ddd + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", cliente=" + cliente +
-                '}';
-    }
 }

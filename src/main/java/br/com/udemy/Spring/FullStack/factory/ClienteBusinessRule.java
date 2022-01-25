@@ -88,4 +88,9 @@ public class ClienteBusinessRule {
     private static void refreshDataAtualizacao(Cliente cliente){
         cliente.setDataAtualizacao(LocalDateTime.now());
     }
+
+    public static Cliente deleteClient(Cliente client){
+        client.setAtivo(false);
+        return client;
+    }
 }

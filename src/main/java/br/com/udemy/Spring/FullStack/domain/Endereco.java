@@ -83,18 +83,4 @@ public class Endereco extends SuperEntidade{
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
-    @Override
-    public String toString() {
-        return "Endereco{" +
-                "logadouro='" + logadouro + '\'' +
-                ", numero='" + numero + '\'' +
-                ", complemento='" + complemento + '\'' +
-                ", bairro='" + bairro + '\'' +
-                ", cep='" + cep + '\'' +
-                ", cidade=" + cidade +
-                ", cliente=" + cliente +
-                ", listaPedidos=" + listaPedidos +
-                '}';
-    }
 }

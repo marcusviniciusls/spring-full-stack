@@ -103,29 +103,31 @@ public class TesteConfig implements CommandLineRunner {
         Endereco endereco = new Endereco("Rua Caetano Basso","252","Parque Savoi City","03584-130",cidade);
         Endereco endereco1 = new Endereco("Rua Piquinhu","227","Vila Ré","03657-010",cidade);
         Endereco endereco2 = new Endereco("Rua Bernado","100","Sé","00000-100",cidade1);
-        
+
         // Criação de Telefones
         Telefone telefone = new Telefone("11","99352-7709");
         Telefone telefone1 = new Telefone("11","98934-7080");
         Telefone telefone2 = new Telefone("21","3569-0873");
+
         
         Cliente cliente = new Cliente("Marcus Vinicius","viniciusmls@outlook.com", 0, "467518998-90");
-        cliente.addListaCliente(telefone);
-        cliente.addListaCliente(telefone1);
         cliente.addListaEndereco(endereco);
         cliente.addListaEndereco(endereco1);
 
         Cliente cliente1 = new Cliente("Antonio Lima","antonio@gmail.com", 1, "46130373368");
         cliente1.addListaEndereco(endereco2);
-        cliente1.addListaCliente(telefone2);
-        
+
         endereco.setCliente(cliente);
         endereco1.setCliente(cliente);
         endereco2.setCliente(cliente1);
-        
+
         telefone.setCliente(cliente);
         telefone1.setCliente(cliente);
         telefone2.setCliente(cliente1);
+
+        cliente.addListaTelefone(telefone);
+        cliente.addListaTelefone(telefone1);
+        cliente1.addListaTelefone(telefone2);
 
         ItemPedido itemPedido = new ItemPedido(new BigDecimal("100.00"), 3, new BigDecimal("500"));
         itemPedido.setProduto(produto);
@@ -134,14 +136,16 @@ public class TesteConfig implements CommandLineRunner {
 
         pedido.addListaItemPedidos(itemPedido);
         itemPedido.setPedido(pedido);
-
         clienteRepository.saveAll(Arrays.asList(cliente1,cliente));
-        telefoneRepository.saveAll(Arrays.asList(telefone,telefone1,telefone2));
-        enderecoRepository.saveAll(Arrays.asList(endereco,endereco1,endereco2));
         pedidoRepository.save(pedido);
         itemPedidoRepository.save(itemPedido);
+        enderecoRepository.saveAll(Arrays.asList(endereco,endereco1,endereco2));
+
+        telefoneRepository.save(telefone);
+        telefoneRepository.save(telefone1);
+        telefoneRepository.save(telefone2);
 
 
-        
+
     }
 }

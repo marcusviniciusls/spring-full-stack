@@ -45,6 +45,10 @@ public class SuperEntidade {
         this.dataAtualizacao = dataAtualizacao;
     }
 
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
     @Override
     public String toString() {
         return "SuperEntidade{" +

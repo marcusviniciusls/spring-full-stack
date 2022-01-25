@@ -8,6 +8,7 @@ import br.com.udemy.Spring.FullStack.form.atualizar.ClientRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
 import br.com.udemy.Spring.FullStack.repositorys.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -57,5 +58,13 @@ public class ClienteService {
         Cliente clienteAtualizado = ClienteBusinessRule.refreshClient(cliente,clientRefresh);
         clienteRepository.save(clienteAtualizado);
     }
-
+    public void deleteClient(UUID id){
+        try{
+            clienteRepository.deleteById(id);
+        } catch(DataIntegrityViolationException dataIntegrityViolationException){
+            Cliente client = clienteRepository.findById(id).get();
+            Cliente clientAlterado = ClienteBusinessRule.deleteClient(client);
+            clienteRepository.save(clientAlterado);
+        }
+    }
 }

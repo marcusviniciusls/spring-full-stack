@@ -21,10 +21,10 @@ public class Cliente extends SuperEntidade{
     private String cpf;
     private String cnpj;
     
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Telefone> listaTelefones = new ArrayList<>();
     
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> listaEnderecos = new ArrayList<>();
 
     public Cliente(String nome, String email, Integer value, String cpfOuCnpj) {
@@ -53,7 +53,7 @@ public class Cliente extends SuperEntidade{
         this.listaEnderecos.add(endereco);
     }
     
-    public void addListaCliente(Telefone telefone){
+    public void addListaTelefone(Telefone telefone){
         this.listaTelefones.add(telefone);    
     }
     
@@ -66,11 +66,11 @@ public class Cliente extends SuperEntidade{
     }
 
     public List<Telefone> getListaTelefones() {
-        return listaTelefones;
+        return this.listaTelefones;
     }
 
     public List<Endereco> getListaEnderecos() {
-        return listaEnderecos;
+        return this.listaEnderecos;
     }
 
     public void setNome(String nome) {

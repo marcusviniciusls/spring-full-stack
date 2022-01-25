@@ -51,4 +51,10 @@ public class ClienteResource {
         clienteService.updateClient(clientRefresh, id);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deleteClient(@PathVariable UUID id){
+        clienteService.deleteClient(id);
+        return ResponseEntity.ok().build();
+    }
 }
