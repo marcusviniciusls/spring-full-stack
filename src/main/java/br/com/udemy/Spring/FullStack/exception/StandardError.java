@@ -42,17 +42,4 @@ public class StandardError {
     public String getPath() {
         return path;
     }
-
-    @Override
-    public String toString() {
-        return "StandardError{" +
-                "timestamp=" + timestamp +
-                ", status=" + status +
-                ", error='" + error + '\'' +
-                ", message='" + message + '\'' +
-                ", path='" + path + '\'' +
-                '}';
-    }
-    
-    
 }

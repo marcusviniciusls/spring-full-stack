@@ -5,27 +5,27 @@ import javax.validation.constraints.NotNull;
 public class ClientForm {
 
     @NotNull
-    private String nome;
+    private String name;
     @NotNull
     private String email;
     @NotNull
-    private Integer natureza;
+    private Integer nature;
     @NotNull
-    private String cpfOuCnpj;
+    private String cpfOrCnpj;
 
-    public ClientForm(String nome, String email, Integer natureza, String cpfOuCnpj) {
-        this.nome = nome;
+    public ClientForm(String name, String email, Integer nature, String cpfOrCnpj) {
+        this.name = name;
         this.email = email;
-        this.natureza = natureza;
-        this.cpfOuCnpj = cpfOuCnpj;
+        this.nature = nature;
+        this.cpfOrCnpj = cpfOrCnpj;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -36,15 +36,15 @@ public class ClientForm {
         this.email = email;
     }
 
-    public Integer getNatureza() {
-        return natureza;
+    public Integer getNature() {
+        return nature;
     }
 
-    public void setNatureza(Integer natureza) {
-        this.natureza = natureza;
+    public void setNature(Integer nature) {
+        this.nature = nature;
     }
 
-    public String getCpfOuCnpj() {
-        return cpfOuCnpj;
+    public String getCpfOrCnpj() {
+        return cpfOrCnpj;
     }
 }

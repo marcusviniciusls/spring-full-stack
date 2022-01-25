@@ -16,7 +16,7 @@ public class ResourceExceptionHandler {
     
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException resourceNotFoundException, HttpServletRequest httpServletRequest){
-        String error = "Object Not Found Exception";
+        String error = "OBJECT NOT FOUND EXCEPTION";
         HttpStatus httpStatus = HttpStatus.NOT_FOUND;
         StandardError erro = new StandardError(Instant.now(), httpStatus.value(), error, resourceNotFoundException.getMessage(), httpServletRequest.getRequestURI());
         return ResponseEntity.status(httpStatus).body(erro);
@@ -24,7 +24,7 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<StandardError> exceptionErrorDefault(DataIntegrityViolationException dataIntegrityViolationException, HttpServletRequest httpServletRequest) {
-        String error = "Error Constraint Violation";
+        String error = "ERROR CONSTRAINT VIOLATION";
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         StandardError erro = new StandardError(Instant.now(), httpStatus.value(), error, dataIntegrityViolationException.getMessage(), httpServletRequest.getRequestURI());
         return ResponseEntity.status(httpStatus).body(erro);
@@ -32,7 +32,7 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> exceptionErrorDefault(MethodArgumentNotValidException methodArgumentNotValidException, HttpServletRequest httpServletRequest) {
-        String errorMessage = "Error Validation";
+        String errorMessage = "ERROR VALIDATION";
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         ValidationError validationError = new ValidationError(Instant.now(), httpStatus.value(), errorMessage,
                 "ERROR VALIDATION", httpServletRequest.getRequestURI());
