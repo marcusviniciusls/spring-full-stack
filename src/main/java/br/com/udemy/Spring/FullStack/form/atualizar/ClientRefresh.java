@@ -1,12 +1,17 @@
 package br.com.udemy.Spring.FullStack.form.atualizar;
 
+/**
+ * Campos necessários para atualizar um Client
+ */
 public class ClientRefresh {
 
+    // Atributos
     private String name;
     private String email;
     private Integer nature;
     private String cpfOrCnpj;
 
+    // Construtores
     public ClientRefresh(String name, String email, Integer nature, String cpfOrCnpj) {
         this.name = name;
         this.email = email;
@@ -14,6 +19,7 @@ public class ClientRefresh {
         this.cpfOrCnpj = cpfOrCnpj;
     }
 
+    // Métodos Gets e Sets
     public String getName() {
         return name;
     }

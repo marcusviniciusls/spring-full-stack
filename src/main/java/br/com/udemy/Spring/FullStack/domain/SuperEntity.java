@@ -7,9 +7,13 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Classe principal que possui campo em comum para todas as tabelas do banco de dados
+ */
 @MappedSuperclass
 public class SuperEntity {
-    
+
+    // Atributos
     @Id
     @Type(type="org.hibernate.type.UUIDCharType")
     private UUID uuid;
@@ -17,6 +21,7 @@ public class SuperEntity {
     private LocalDateTime dateUpdate;
     private boolean status;
 
+    // Construtores
     public SuperEntity() {
         uuid = UUID.randomUUID();
         LocalDateTime now = LocalDateTime.now();
@@ -24,6 +29,7 @@ public class SuperEntity {
         status = true;
     }
 
+    // Métodos Gets e Sets
     public UUID getUuid() {
         return uuid;
     }

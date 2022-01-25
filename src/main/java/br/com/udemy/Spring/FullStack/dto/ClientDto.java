@@ -5,8 +5,12 @@ import br.com.udemy.Spring.FullStack.domain.enums.Nature;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe Data Transfer Object (Dto) para a entidade Client
+ */
 public class ClientDto {
-    
+
+    // Atributos
     private String name;
     private String email;
     private Nature nature;
@@ -14,9 +18,11 @@ public class ClientDto {
     private String cnpj;
     private List<TelephoneDto> listTelephones = new ArrayList<>();
     private List<AddressDto> listAddress = new ArrayList<>();
-    
+
+    // Construtores
     public ClientDto(){}
 
+    // Métodos Gets e Sets
     public String getName() {
         return name;
     }

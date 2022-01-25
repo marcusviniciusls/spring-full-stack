@@ -2,13 +2,19 @@ package br.com.udemy.Spring.FullStack.dto;
 
 import java.math.BigDecimal;
 
+/**
+ * Classe Data Transfer Object (Dto) para a entidade Product
+ */
 public class ProductDto {
 
+    // Atributos
     private String name;
     private BigDecimal price;
 
+    // Construtores
     public ProductDto(){}
 
+    // Métodos Gets e Sets
     public String getName() {
         return name;
     }

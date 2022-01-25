@@ -23,6 +23,6 @@ public class OrderService {
             throw new ResourceNotFoundException("Order Not Found");
         }
         Order order = optionalOrder.get();
-        return OrderBusinessRule.convertPedidoDao(order);
+        return OrderBusinessRule.convertOrderInOrderDto(order);
     }
 }

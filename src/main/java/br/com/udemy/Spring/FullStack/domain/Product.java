@@ -5,10 +5,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe de entidade para a tabela de produtos
+ */
 @Table
 @Entity(name = "products")
 public class Product extends SuperEntity {
 
+    // Atributos
     private String name;
     private BigDecimal price;
     
@@ -19,6 +23,7 @@ public class Product extends SuperEntity {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderItem> listOrderItem = new ArrayList<>();
 
+    // Construtores
     public Product(String name, BigDecimal price, Category category) {
         this.name = name;
         this.price = price;
@@ -33,6 +38,7 @@ public class Product extends SuperEntity {
     
     public Product(){}
 
+    // Métodos gets e sets
     public String getName() {
         return name;
     }

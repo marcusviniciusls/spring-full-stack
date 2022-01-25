@@ -11,9 +11,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
 
+/**
+ * Classe que controla todas as excessões que API poderá emitir
+ */
 @ControllerAdvice
 public class ResourceExceptionHandler {
-    
+
+    /**
+     * Método que captura a excessão do tipo Resource Not Found Exception
+     * Quando um método tenta buscar um registro no Banco de dado e não encontra, é emitido essa excessão.
+     * @param resourceNotFoundException - Excessão capturada
+     * @param httpServletRequest - Requisição capturada
+     * @return - Resposta para o Controller
+     */
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException resourceNotFoundException, HttpServletRequest httpServletRequest){
         String error = "OBJECT NOT FOUND EXCEPTION";
@@ -22,6 +32,13 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(httpStatus).body(erro);
     }
 
+    /**
+     * Método que captura a excessão de dataIntegrityViolationException
+     * Essa excessão é lançada quando a API tenta excluir um registro, mas tem vínculo com outra tabela
+     * @param dataIntegrityViolationException - Excessão capturada
+     * @param httpServletRequest - Requisição capturada
+     * @return - Resposta para o Controller
+     */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<StandardError> exceptionErrorDefault(DataIntegrityViolationException dataIntegrityViolationException, HttpServletRequest httpServletRequest) {
         String error = "ERROR CONSTRAINT VIOLATION";
@@ -30,6 +47,13 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(httpStatus).body(erro);
     }
 
+    /**
+     * Método que captura a excessão de methodArgumentNotValidException
+     * Essa excessão é lançada quando alguma regra do Java Bean Validation é violada
+     * @param methodArgumentNotValidException - Excessão capturada
+     * @param httpServletRequest - Requisição capturada
+     * @return - Resposta para o Controller
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> exceptionErrorDefault(MethodArgumentNotValidException methodArgumentNotValidException, HttpServletRequest httpServletRequest) {
         String errorMessage = "ERROR VALIDATION";
@@ -42,6 +66,13 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(httpStatus).body(validationError);
     }
 
+    /**
+     * Método que captura a excessão de exception
+     * Essa excessão é lançada quando não tratada nessa classe
+     * @param exception - Excessão capturada
+     * @param httpServletRequest - Requisição capturada
+     * @return - Resposta para o Controller
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<StandardError> exceptionErrorDefault(Exception exception, HttpServletRequest httpServletRequest) {
        String error = "Exception Error Default";

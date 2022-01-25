@@ -4,15 +4,20 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.Instant;
 
+/**
+ * Excessão padrão adaptada
+ */
 public class StandardError {
-    
+
+    // Atributos
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant timestamp;
     private Integer status;
     private String error;
     private String message;
     private String path;
-    
+
+    // Construtores
     public StandardError(){}
 
     public StandardError(Instant timestamp, Integer status, String error, String message, String path) {
@@ -23,6 +28,7 @@ public class StandardError {
         this.path = path;
     }
 
+    // Métodos Gets e Sets
     public Instant getTimestamp() {
         return timestamp;
     }

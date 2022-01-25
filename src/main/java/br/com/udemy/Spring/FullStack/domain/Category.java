@@ -8,21 +8,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Classe de Entidade para a tabela categoria
+ */
 @Table
 @Entity(name = "categories")
 public class Category extends SuperEntity {
-    
+
+    // Atributos
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
     private List<Product> listProduct = new ArrayList<>();
-    
+
+    // Construtores
     public Category(String name) {
         this.name = name;
     }
     
     public Category(){}
 
+    // Métodos Gets e Sets
     public String getName() {
         return name;
     }

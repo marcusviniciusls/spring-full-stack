@@ -2,8 +2,12 @@ package br.com.udemy.Spring.FullStack.form.salvar;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Campos necessário para salvar um Client
+ */
 public class ClientForm {
 
+    // Atributos
     @NotNull
     private String name;
     @NotNull
@@ -13,6 +17,7 @@ public class ClientForm {
     @NotNull
     private String cpfOrCnpj;
 
+    // Construtores
     public ClientForm(String name, String email, Integer nature, String cpfOrCnpj) {
         this.name = name;
         this.email = email;
@@ -20,6 +25,7 @@ public class ClientForm {
         this.cpfOrCnpj = cpfOrCnpj;
     }
 
+    // Métodos Gets e Sets
     public String getName() {
         return name;
     }

@@ -5,10 +5,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe de entidade para a tabela de Pedidos
+ */
 @Table
 @Entity(name = "orders")
 public class Order extends SuperEntity {
 
+    // Atributos
     private LocalDate date = LocalDate.now();
     
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -17,13 +21,15 @@ public class Order extends SuperEntity {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
-    
+
+    // Construtores
     public Order(){}
 
     public Order(Address address) {
         this.address = address;
     }
 
+    // Métodos gets e sets
     public LocalDate getDate() {
         return date;
     }

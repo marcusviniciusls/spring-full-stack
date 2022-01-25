@@ -7,20 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Classe Data Transfer Object (Dto) para a entidade Category
+ */
 public class CategoryDto {
-    
-    @Autowired
-    private CategoryService categoryService;
 
+    // Atributos
     private UUID id;
     private String name;
 
     private List<ProductDto> listProductDto = new ArrayList<>();
 
+    // Construtores
     public CategoryDto(String category) {
         this.name = category;
     }
 
+    // Métodos Gets e Sets
     public String getName() {
         return name;
     }

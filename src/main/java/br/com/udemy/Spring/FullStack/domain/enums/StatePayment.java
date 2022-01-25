@@ -1,5 +1,8 @@
 package br.com.udemy.Spring.FullStack.domain.enums;
 
+/**
+ * Enum que defini o estado de cada pagamento
+ */
 public enum StatePayment {
     
     PENDENTE(1),

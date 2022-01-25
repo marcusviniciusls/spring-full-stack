@@ -15,23 +15,36 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe que contém regras de negócios para a entidade Client
+ */
 public class ClientBusinessRule {
-    
+
+    /**
+     * Converte um objeto do tipo Cleint em ClientDto
+     * @param client - recebe um objeto do tipo Client
+     * @return - retorna um objeto do tipo ClientDto
+     */
     public static ClientDto convertClientDto(Client client){
         ClientDto clientDto = new ClientDto();
         
         clientDto.setEmail(client.getEmail());
         clientDto.setNature(client.getNature());
         clientDto.setName(client.getName());
-        setNaturezaCPFouCNPJ(clientDto,client);
-        clientDto.setListTelephones(setListTelefone(client.getListTelephone()));
-        clientDto.setListAddress(setListEndereco(client.getListAddress()));
+        setNatureCpfOrCnpj(clientDto,client);
+        clientDto.setListTelephones(setListTelephone(client.getListTelephone()));
+        clientDto.setListAddress(setListAddress(client.getListAddress()));
         
         return clientDto;
         
     }
-    
-    private static void setNaturezaCPFouCNPJ(ClientDto clientDto, Client client){
+
+    /**
+     * Regra para setar o CPF ou CNPJ para o ClientDto
+     * @param clientDto - ClientDto para atualizar
+     * @param client - Client antigo
+     */
+    private static void setNatureCpfOrCnpj(ClientDto clientDto, Client client){
         if (client.getNature() == Nature.PESSOA_FISICA){
             clientDto.setCpf(client.getCpf());
         } else if (client.getNature() == Nature.PESSOA_JURIDICA){
@@ -40,36 +53,67 @@ public class ClientBusinessRule {
             throw new InvalidNatureCustomer("Invalid Nature Customer");
         }
     }
-    
-    private static List<TelephoneDto> setListTelefone(List<Telephone> listTelephoneClient){
+
+    /**
+     * Método que traz todos os endereços para o clientDto
+     * @param listTelephoneClient - recebe uma lista de Telefones do cliente para transformar em TelefoneDto
+     * @return - retorna uma lista de telefonesDto
+     */
+    private static List<TelephoneDto> setListTelephone(List<Telephone> listTelephoneClient){
         List<TelephoneDto> listTelephoneDto = new ArrayList<>();
         for (Telephone telephone : listTelephoneClient){
-            listTelephoneDto.add(convertTelefoneDto(telephone));
+            listTelephoneDto.add(convertTelephoneDto(telephone));
         }
         return listTelephoneDto;
     }
-    
-    private static TelephoneDto convertTelefoneDto(Telephone telephone){
+
+    /**
+     * Converte o objeto do tipo Telephone em TelephoneDto
+     * @param telephone - recebe um objeto do tipo Telephone
+     * @return - retorna um objeto do tipo TelephoneDto
+     */
+    private static TelephoneDto convertTelephoneDto(Telephone telephone){
         return new TelephoneDto(telephone.getDdd(),telephone.getTelephone());
     }
-    
-    private static List<AddressDto> setListEndereco(List<Address> listAddressClient){
+
+    /**
+     * Converte uma lista de AddressClient em AddressDto
+     * @param listAddressClient - recebe uma lista de AddressClient
+     * @return - retorna uma lista de AddresDto
+     */
+    private static List<AddressDto> setListAddress(List<Address> listAddressClient){
         List<AddressDto> ListAddressDto = new ArrayList<>();
         for (Address address : listAddressClient){
-            ListAddressDto.add(convertEnderecoDto(address));
+            ListAddressDto.add(convertAddressDto(address));
         }
         return ListAddressDto;
     }
-    
-    private static AddressDto convertEnderecoDto(Address address){
+
+    /**
+     * Converte um objeto do tipo Address em AddressDto
+     * @param address - recebe um objeto do tipo Address
+     * @return - retorna um objeto do tipo de AddressDto
+     */
+    private static AddressDto convertAddressDto(Address address){
         return new AddressDto(address.getAddress(), address.getNumber(), address.getComplement(), address.getDistrict(), address.getCep());
     }
 
+    /**
+     * Converte um objeto do tipo ClientForm em Client
+     * @param clientForm - recebe um objeto do tipo ClientForm
+     * @return - retorna um objeto do tipo Client
+     */
     public static Client convertClientFormInClient(ClientForm clientForm){
         Client client = new Client(clientForm.getName(), clientForm.getEmail(), clientForm.getNature(), clientForm.getCpfOrCnpj());
         return client;
     }
 
+    /**
+     * Método que atualiza um cliente para salvar no banco de dados
+     * @param client - Recebe um objeto do tipo de Client que venho do Banco de Dados
+     * @param clientRefresh - Recebe um objeto do tipo ClientRefresh  que vem de fora da API
+     * @return - Retorna o objeto atualizado
+     */
     public static Client refreshClient(Client client, ClientRefresh clientRefresh){
         if (clientRefresh.getName() != null){
             client.setName(clientRefresh.getName());
@@ -85,10 +129,19 @@ public class ClientBusinessRule {
         return client;
     }
 
+    /**
+     * Atualiza a data de atualização do registro no Banco de Dados
+     * @param client - Recebe um Client do banco de dados.
+     */
     private static void refreshDataAtualizacao(Client client){
         client.setDateUpdate(LocalDateTime.now());
     }
 
+    /**
+     * Marca como excluido um item no banco de dados quando
+     * @param client - Recebe um client que venho do banco de dados
+     * @return - Retorna um objeto atualizado
+     */
     public static Client deleteClient(Client client){
         client.setStatus(false);
         return client;

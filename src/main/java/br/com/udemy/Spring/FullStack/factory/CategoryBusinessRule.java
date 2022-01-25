@@ -9,27 +9,46 @@ import br.com.udemy.Spring.FullStack.form.salvar.CategoryForm;
 
 import java.util.List;
 
+/**
+ * Classe que contém regras de negócios para a entidade Category
+ */
 public class CategoryBusinessRule {
 
-    public static Category convertCategoriaFormInCategoria(CategoryForm categoriaForm){
-        String nameCategory = categoriaForm.getName();
-        Category categoria = new Category(nameCategory);
+    /**
+     * Converte o objeto do tipo de CategoryForm em Category
+     * @param categoryForm - recebe um objeto de categoryForm que vem de fora da API
+     * @return - retorna um objeto do tipo Category
+     */
+    public static Category convertCategoryFormInCategory(CategoryForm categoryForm){
+        String nameCategory = categoryForm.getName();
+        Category category = new Category(nameCategory);
 
-        return categoria;
+        return category;
     }
 
-    public static CategoryDto convertCategoriaInCategoriaDto(Category category){
+    /**
+     * Converte um objeto do tipo Category em CategoryDto
+     * @param category - Recebe um objeto do tipo Category
+     * @return - Retorna um objeto do tipo CategoryDto
+     */
+    public static CategoryDto convertCategoryInCategoryDto(Category category){
         CategoryDto categoryDto = new CategoryDto(category.getName());
         categoryDto.setId(category.getUuid());
         List<Product> listProduct = category.getListProduct();
         for(Product product : listProduct){
-            ProductDto productDto = ProductBusinessRule.convertProdutoInProdutoDto(product);
+            ProductDto productDto = ProductBusinessRule.convertProductInProductDto(product);
             categoryDto.addListProdutoDto(productDto);
         }
         return categoryDto;
     }
 
-    public static Category atualizarCategoria(Category categoryBank, CategoryRefresh categoryNew){
+    /**
+     * Atualiza o nome da Categoria
+     * @param categoryBank - Recebe um objeto do tipo Category que venho do Banco
+     * @param categoryNew - Recebe um objeto do tipo CategoryRefresh que venho de fora da API
+     * @return - Retorna o objeto atualizado
+     */
+    public static Category updateCategory(Category categoryBank, CategoryRefresh categoryNew){
         categoryBank.setName(categoryNew.getNameCategory());
         return categoryBank;
     }

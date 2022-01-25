@@ -1,5 +1,8 @@
 package br.com.udemy.Spring.FullStack.domain.enums;
 
+/**
+ * Enum para definir pessoa fisica ou pessoa juridica
+ */
 public enum Nature {
     PESSOA_FISICA(0),
     PESSOA_JURIDICA(1);

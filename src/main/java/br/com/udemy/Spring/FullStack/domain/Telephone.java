@@ -2,10 +2,14 @@ package br.com.udemy.Spring.FullStack.domain;
 
 import javax.persistence.*;
 
+/**
+ * Classe de entidade da tabela telefones
+ */
 @Table
 @Entity(name = "telephones")
 public class Telephone extends SuperEntity {
 
+    // Atributos
     private String ddd;
     private String telephone;
 
@@ -13,6 +17,7 @@ public class Telephone extends SuperEntity {
     @JoinColumn(name = "client_id")
     private Client client;
 
+    // Construtores
     public Telephone(String ddd, String telephone) {
         this.ddd = ddd;
         this.telephone = telephone;
@@ -20,6 +25,7 @@ public class Telephone extends SuperEntity {
     
     public Telephone(){}
 
+    // Métodos Gets e Sets
     public String getDdd() {
         return ddd;
     }

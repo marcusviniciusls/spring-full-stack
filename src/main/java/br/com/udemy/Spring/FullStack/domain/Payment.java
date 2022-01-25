@@ -4,11 +4,15 @@ import br.com.udemy.Spring.FullStack.domain.enums.StatePayment;
 
 import javax.persistence.*;
 
+/**
+ * Classe de entidades para a tabela de pagamentos
+ */
 @Table
 @Entity(name = "payments")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Payment extends SuperEntity {
 
+    // Atributos
     @Enumerated(EnumType.ORDINAL)
     private StatePayment statePayment;
 
@@ -17,11 +21,13 @@ public abstract class Payment extends SuperEntity {
     @MapsId
     private Order order;
 
+    // Construtores
     public Payment(StatePayment statePayment, Order order) {
         this.statePayment = statePayment;
         this.order = order;
     }
 
+    // Métodos gets e Sets
     public StatePayment getStatePayment() {
         return statePayment;
     }

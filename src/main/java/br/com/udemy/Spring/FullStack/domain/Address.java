@@ -4,10 +4,14 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe de Entidade para a tabela endereço
+ */
 @Table
 @Entity(name = "addresss")
 public class Address extends SuperEntity {
 
+    // Atributos
     private String address;
     private String number;
     private String complement;
@@ -25,6 +29,7 @@ public class Address extends SuperEntity {
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     private List<Order> listOrder = new ArrayList<>();
 
+    // Construtores
     public Address(String address, String number, String district, String cep, City city) {
         this.address = address;
         this.number = number;
@@ -44,6 +49,7 @@ public class Address extends SuperEntity {
     
     public Address(){}
 
+    // Métodos Gets e Sets
     public String getAddress() {
         return address;
     }

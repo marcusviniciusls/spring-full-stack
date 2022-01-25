@@ -7,10 +7,14 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe de entidade da tabela cliente
+ */
 @Table
 @Entity(name = "clients")
 public class Client extends SuperEntity {
 
+    // Atributos
     private String name;
     private String email;
     
@@ -26,6 +30,7 @@ public class Client extends SuperEntity {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Address> listAddress = new ArrayList<>();
 
+    // Construtores
     public Client(String name, String email, Integer value, String cpgOrCnpj) {
         this.name = name;
         this.email = email;
@@ -36,6 +41,7 @@ public class Client extends SuperEntity {
     
     public Client(){}
 
+    // Métodos Gets e Sets
     public String getName() {
         return name;
     }
@@ -80,6 +86,11 @@ public class Client extends SuperEntity {
         this.email = email;
     }
 
+    /**
+     * Método que válida o cpf ou cnpj que vem de fora da entidade
+     * @param value - natureza do cliente, caso for 0 pessoa fisica, e caso for 1 pessoa juridica
+     * @param cpfOrCnpj - valor do CPF ou CNPJ
+     */
     private void verificarCpfOuCnpj(Integer value, String cpfOrCnpj){
         if (value == 0){
             this.cpf = cpfOrCnpj;
@@ -89,7 +100,11 @@ public class Client extends SuperEntity {
             throw new InvalidNatureCustomer("CPF OR CNPJ NOT VALID");
         }
     }
-    
+
+    /**
+     * Método para setar a natureza
+     * @param value - natureza do cliente, caso for 0 pessoa fisica, e caso for 1 pessoa juridica
+     */
     public void setNature(Integer value){
         if (value == 0){
             this.nature = Nature.PESSOA_FISICA;
@@ -97,6 +112,11 @@ public class Client extends SuperEntity {
             this.nature = Nature.PESSOA_JURIDICA;
         }
     }
+
+    /**
+     * Método que válida o cpf ou cnpj que vem do banco de dados
+     * @param cpfOrCnpj - valor do CPF ou CNPJ
+     */
     public void verificarCpfOuCnpjEntidadeCliente(String cpfOrCnpj){
         if (Nature.PESSOA_FISICA.getValue() == 0){
             this.cpf = cpfOrCnpj;

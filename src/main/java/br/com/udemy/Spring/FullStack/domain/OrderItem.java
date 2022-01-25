@@ -6,10 +6,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 
+/**
+ * Classe de entidades para a tabela associativa entre Pedidos e Produtos (Pedidos_Itens)
+ */
 @Table
 @Entity(name = "order_items")
 public class OrderItem extends SuperEntity {
 
+    // Atributos
     private BigDecimal discount;
     private Integer quantity;
     private BigDecimal unityPrice;
@@ -23,6 +27,7 @@ public class OrderItem extends SuperEntity {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    // Construtores
     public OrderItem(BigDecimal discount, Integer quantity, BigDecimal unityPrice) {
         this.discount = discount;
         this.quantity = quantity;
@@ -38,6 +43,7 @@ public class OrderItem extends SuperEntity {
     
     public OrderItem(){}
 
+    // Métodos Gets e Sets
     public BigDecimal getDiscount() {
         return discount;
     }

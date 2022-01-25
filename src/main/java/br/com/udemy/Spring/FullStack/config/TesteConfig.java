@@ -10,36 +10,39 @@ import org.springframework.context.annotation.Profile;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+/**
+ * Classe que inicia com informações salva no Banco de Dados
+ */
 @Configuration
 @Profile("test")
 public class TesteConfig implements CommandLineRunner {
     
     @Autowired
-    private CategoryRepository categoriaRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    private ProductRepository produtoRepository;
+    private ProductRepository productRepository;
     
     @Autowired
-    private CityRepository cidadeRepository;
+    private CityRepository cityRepository;
     
     @Autowired
-    private StateRepository estadoRepository;
+    private StateRepository stateRepository;
     
     @Autowired
-    private AddressRepository enderecoRepository;
+    private AddressRepository addressRepository;
     
     @Autowired
-    private TelephoneRepository telefoneRepository;
+    private TelephoneRepository telephoneRepository;
     
     @Autowired
-    private ClientRepository clienteRepository;
+    private ClientRepository clientRepository;
 
     @Autowired
-    private OrderItemRepository itemPedidoRepository;
+    private OrderItemRepository orderItemRepository;
 
     @Autowired
-    private OrderRepository pedidoRepository;
+    private OrderRepository orderRepository;
     
     @Override
     public void run(String... args) throws Exception {
@@ -65,7 +68,7 @@ public class TesteConfig implements CommandLineRunner {
         Category categoria17 = new Category("Elétrico");
         Category categoria18 = new Category("Vestuário");
         Category categoria19 = new Category("Biblioteca");
-        categoriaRepository.saveAll(Arrays.asList(categoria,categoria1,categoria2,categoria3,categoria4,
+        categoryRepository.saveAll(Arrays.asList(categoria,categoria1,categoria2,categoria3,categoria4,
                 categoria5,categoria6,categoria7,categoria8,categoria9,categoria10,categoria11,categoria12,
                 categoria13,categoria14,categoria15,categoria16,categoria17,categoria18,categoria19));
 
@@ -75,13 +78,13 @@ public class TesteConfig implements CommandLineRunner {
         Product produto2 = new Product("Canetas",categoria3);
         Product produto3 = new Product("Sapato", categoria3);
         Product produto4 = new Product("Cabos",new BigDecimal("100"), categoria2);
-        produtoRepository.saveAll(Arrays.asList(produto,produto1,produto2,produto3,produto4));
+        productRepository.saveAll(Arrays.asList(produto,produto1,produto2,produto3,produto4));
 
         // Criação Estados
         State estado = new State("SP");
         State estado2 = new State("RJ");
         State estado1 = new State("CE");
-        estadoRepository.saveAll(Arrays.asList(estado1,estado,estado2));
+        stateRepository.saveAll(Arrays.asList(estado1,estado,estado2));
 
         // Criação Cidades
         City cidade = new City("São Paulo", estado);
@@ -94,7 +97,7 @@ public class TesteConfig implements CommandLineRunner {
         City cidade6 = new City("Volta Redonda", estado2);
         City cidade7 = new City("Sobral", estado1);
         City cidade8 = new City("Fortaleza", estado1);
-        cidadeRepository.saveAll(Arrays.asList(cidade,cidade1,cidade2,cidade3,cidade4,cidade5,cidade6,cidade7,cidade8,cidade9));
+        cityRepository.saveAll(Arrays.asList(cidade,cidade1,cidade2,cidade3,cidade4,cidade5,cidade6,cidade7,cidade8,cidade9));
 
         // Criação de Endereço
         Address endereco = new Address("Rua Caetano Basso","252","Parque Savoi City","03584-130",cidade);
@@ -133,14 +136,14 @@ public class TesteConfig implements CommandLineRunner {
 
         pedido.addListaItemPedidos(itemPedido);
         itemPedido.setOrder(pedido);
-        clienteRepository.saveAll(Arrays.asList(cliente1,cliente));
-        pedidoRepository.save(pedido);
-        itemPedidoRepository.save(itemPedido);
-        enderecoRepository.saveAll(Arrays.asList(endereco,endereco1,endereco2));
+        clientRepository.saveAll(Arrays.asList(cliente1,cliente));
+        orderRepository.save(pedido);
+        orderItemRepository.save(itemPedido);
+        addressRepository.saveAll(Arrays.asList(endereco,endereco1,endereco2));
 
-        telefoneRepository.save(telefone);
-        telefoneRepository.save(telefone1);
-        telefoneRepository.save(telefone2);
+        telephoneRepository.save(telefone);
+        telephoneRepository.save(telefone1);
+        telephoneRepository.save(telefone2);
 
 
 

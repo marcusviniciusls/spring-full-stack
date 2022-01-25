@@ -18,12 +18,20 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Regra de Negócio Centralizado: Client
+ */
 @Service
 public class ClientService {
     
     @Autowired
     private ClientRepository clientRepository;
-    
+
+    /**
+     * Busca um Client por id
+     * @param id - Recebe o id para pesquisar o Client
+     * @return - Retorna o ClientDto encontrado
+     */
     public ClientDto findById(UUID id){
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isEmpty()){
@@ -34,7 +42,15 @@ public class ClientService {
         
         return clientBusinessRule.convertClientDto(client);
     }
-    
+
+    /**
+     * Busca todos os Client do Banco de Dados
+     * @param page - Qual a página motrar
+     * @param linesPerPage Quantas linhas por página
+     * @param orderBy - Qual campo será ordenado
+     * @param direction - Qual direção ASC ou DESC
+     * @return - Retorna uma Lista de ClientDto
+     */
     public Page<ClientDto> findByAll(Integer page, Integer linesPerPage, String orderBy, String direction){
         Pageable pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
         Page<Client> listClient = clientRepository.findAll(pageRequest);
@@ -42,11 +58,20 @@ public class ClientService {
         return listClientDto;
     }
 
+    /**
+     * Salva um novo Client no Banco de Dados
+     * @param clientForm - Recebe as informações do novo Client
+     */
     public void saveClient(ClientForm clientForm){
         Client client = ClientBusinessRule.convertClientFormInClient(clientForm);
         clientRepository.save(client);
     }
 
+    /**
+     * Atualiza um Client no Banco de Dados
+     * @param clientRefresh - Recebe as informações para a atualização
+     * @param id - Recebe o id de qual Client deverá ser atualziado
+     */
     public void updateClient(ClientRefresh clientRefresh, UUID id){
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isEmpty()){
@@ -56,6 +81,11 @@ public class ClientService {
         Client clientUpdate = ClientBusinessRule.refreshClient(client,clientRefresh);
         clientRepository.save(clientUpdate);
     }
+
+    /**
+     * Deleta um Client por ID
+     * @param id - Recebe o id do Client que deverá ser excluido
+     */
     public void deleteClient(UUID id){
         try{
             clientRepository.deleteById(id);
