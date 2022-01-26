@@ -1,12 +1,13 @@
 package br.com.udemy.Spring.FullStack.services;
 
-import br.com.udemy.Spring.FullStack.domain.Client;
+import br.com.udemy.Spring.FullStack.domain.*;
 import br.com.udemy.Spring.FullStack.dto.ClientDto;
 import br.com.udemy.Spring.FullStack.exception.ResourceNotFoundException;
-import br.com.udemy.Spring.FullStack.factory.ClientBusinessRule;
+import br.com.udemy.Spring.FullStack.factory.*;
 import br.com.udemy.Spring.FullStack.form.atualizar.ClientRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
-import br.com.udemy.Spring.FullStack.repositorys.ClientRepository;
+import br.com.udemy.Spring.FullStack.form.salvar.ClientFormFull;
+import br.com.udemy.Spring.FullStack.repositorys.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,9 +27,22 @@ import java.util.UUID;
  */
 @Service
 public class ClientService {
-    
+
+    // Váriaveis de Repository
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private TelephoneRepository telephoneRepository;
+
+    @Autowired
+    private StateRepository stateRepository;
+
+    @Autowired
+    private CityRepository cityRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     /**
      * Busca um Client por id
@@ -94,5 +111,65 @@ public class ClientService {
             Client clientAlter = ClientBusinessRule.deleteClient(client);
             clientRepository.save(clientAlter);
         }
+    }
+
+    /**
+     * Salva um cliente completo
+     * @param clientFormFull - Recebe o cliente completo
+     */
+    public void saveClientFull(ClientFormFull clientFormFull){
+        State state = convertClientFormFullInState(clientFormFull);
+        City city = convertClientFormFullInCity(clientFormFull,state);
+        Address address = convertClientFormFullInAddress(clientFormFull,city);
+        Client client = ClientBusinessRule.convertClientFormInClient(clientFormFull);
+        List<Telephone> listTelephone = TelephoneBusinessRule.convertClientFormFullInTelephone(clientFormFull);
+        client.setListTelephone(listTelephone);
+        for(Telephone telephone : listTelephone){
+            telephone.setClient(client);
+        }
+        address.setClient(client);
+        client.addListaEndereco(address);
+        clientRepository.save(client);
+        telephoneRepository.saveAll(listTelephone);
+    }
+
+    /**
+     * Converte um clientForm em State
+     * @param clientFormFull - Recebe o cliente completo
+     * @return - retorna o state criado
+     */
+    private State convertClientFormFullInState(ClientFormFull clientFormFull) {
+        Optional<State> optionalState = stateRepository.findByUf(clientFormFull.getUf());
+        if (optionalState.isEmpty()){
+            throw new RuntimeException("State Not Found");
+        }
+        return optionalState.get();
+    }
+
+    /**
+     * Converte um ClientFormFull em City
+     * @param clientFormFull - Recebe o cliente completo
+     * @param state - Estado pesquisado no Banco de Dados
+     * @return - Retorna a Cidade criada
+     */
+    private City convertClientFormFullInCity(ClientFormFull clientFormFull, State state){
+        City city = new City(clientFormFull.getCity(), state);
+        state.addCidade(city);
+        cityRepository.save(city);
+        return city;
+    }
+
+    /**
+     * Converte ClientForm em Address
+     * @param clientFormFull - Recebe o cliente completo
+     * @param city - Recebe a cidade criada
+     * @return - retorna o address criado
+     */
+    public Address convertClientFormFullInAddress(ClientFormFull clientFormFull, City city){
+        Address address = new Address(clientFormFull.getAddress(), clientFormFull.getNumber(),
+                clientFormFull.getDistrict(), clientFormFull.getCep(), city);
+        address.setCity(city);
+        addressRepository.save(address);
+        return address;
     }
 }

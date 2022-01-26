@@ -10,6 +10,7 @@ import br.com.udemy.Spring.FullStack.dto.TelephoneDto;
 import br.com.udemy.Spring.FullStack.exception.InvalidNatureCustomer;
 import br.com.udemy.Spring.FullStack.form.atualizar.ClientRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * Classe que contém regras de negócios para a entidade Client
  */
+@Service
 public class ClientBusinessRule {
 
     /**

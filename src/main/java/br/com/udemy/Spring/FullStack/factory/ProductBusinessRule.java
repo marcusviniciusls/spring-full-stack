@@ -2,10 +2,12 @@ package br.com.udemy.Spring.FullStack.factory;
 
 import br.com.udemy.Spring.FullStack.domain.Product;
 import br.com.udemy.Spring.FullStack.dto.ProductDto;
+import org.springframework.stereotype.Service;
 
 /**
  * Classe que contém regras de negócios para a entidade Product
  */
+@Service
 public class ProductBusinessRule {
 
     /**

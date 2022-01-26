@@ -3,6 +3,7 @@ package br.com.udemy.Spring.FullStack.resources;
 import br.com.udemy.Spring.FullStack.dto.ClientDto;
 import br.com.udemy.Spring.FullStack.form.atualizar.ClientRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
+import br.com.udemy.Spring.FullStack.form.salvar.ClientFormFull;
 import br.com.udemy.Spring.FullStack.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -60,6 +61,17 @@ public class ClientResource {
     @PostMapping
     public ResponseEntity<?> saveClient(@Valid @RequestBody ClientForm clientForm){
         clientService.saveClient(clientForm);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    /**
+     * Método para salvar um cliente completo com todas as informações
+     * @param clientFormFull - Recebe dados do cliente para salvar no banco de dados
+     * @return retorna criado caso de tudo certo
+     */
+    @PostMapping(value = "full")
+    public ResponseEntity<?> saveClientFull(@Valid @RequestBody ClientFormFull clientFormFull){
+        clientService.saveClientFull(clientFormFull);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

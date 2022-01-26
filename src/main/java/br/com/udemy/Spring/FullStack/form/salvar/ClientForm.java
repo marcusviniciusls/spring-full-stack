@@ -25,6 +25,8 @@ public class ClientForm {
         this.cpfOrCnpj = cpfOrCnpj;
     }
 
+    public ClientForm(){}
+
     // Métodos Gets e Sets
     public String getName() {
         return name;

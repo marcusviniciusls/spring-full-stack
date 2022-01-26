@@ -81,10 +81,36 @@ public class TesteConfig implements CommandLineRunner {
         productRepository.saveAll(Arrays.asList(produto,produto1,produto2,produto3,produto4));
 
         // Criação Estados
-        State estado = new State("SP");
-        State estado2 = new State("RJ");
-        State estado1 = new State("CE");
-        stateRepository.saveAll(Arrays.asList(estado1,estado,estado2));
+        State estado = new State(25,"São Paulo","SP");
+        State estado2 = new State(33,"Rio de Janeiro","RJ");
+        State estado1 = new State(11,"Rondônia","RO");
+        State estado3 = new State(12,"Acre","AC");
+        State estado4 = new State(13,"Amazonas","AM");
+        State estado5 = new State(14, "Roraima","RR");
+        State estado6 = new State(15,"Pará","PA");
+        State estado7 = new State(16,"Amapá","AP");
+        State estado8 = new State(17,"Tocatins","TO");
+        State estado9 = new State(21,"Maranhão","MA");
+        State estado10 = new State(22,"Piauí","PI");
+        State estado11 = new State(23,"Ceará","CE");
+        State estado12 = new State(24,"Rio Grande do Norte","RN");
+        State estado13 = new State(25,"Paraíba","PB");
+        State estado14 = new State(26,"Pernanbuco","PE");
+        State estado15 = new State(27,"Alagoas","AL");
+        State estado16 = new State(28,"Sergipe","SE");
+        State estado17 = new State(29,"Bahia","BA");
+        State estado18 = new State(31,"Minas Gerais","MG");
+        State estado19 = new State(32,"Espirito Santo","ES");
+        State estado20 = new State(41,"Paraná","PR");
+        State estado21 = new State(42,"Santa Catarina","SC");
+        State estado22 = new State(43,"Rio Grande do Sul","RS");
+        State estado23 = new State(50,"Mato Grosso do Sul","MS");
+        State estado24 = new State(51,"Mato Grosso","MT");
+        State estado25 = new State(52,"Goías","GO");
+        State estado26 = new State(53,"Distrito Federal","DF");
+        stateRepository.saveAll(Arrays.asList(estado1,estado,estado2,estado3,estado4,estado5,estado6,estado7
+        ,estado8,estado9,estado10,estado11,estado12,estado13,estado14,estado15,estado16,estado17,estado18,
+                estado19,estado20,estado21,estado22,estado23,estado24,estado25,estado26));
 
         // Criação Cidades
         City cidade = new City("São Paulo", estado);

@@ -86,6 +86,14 @@ public class Client extends SuperEntity {
         this.email = email;
     }
 
+    public void setListTelephone(List<Telephone> listTelephone) {
+        this.listTelephone = listTelephone;
+    }
+
+    public void setListAddress(List<Address> listAddress) {
+        this.listAddress = listAddress;
+    }
+
     /**
      * Método que válida o cpf ou cnpj que vem de fora da entidade
      * @param value - natureza do cliente, caso for 0 pessoa fisica, e caso for 1 pessoa juridica

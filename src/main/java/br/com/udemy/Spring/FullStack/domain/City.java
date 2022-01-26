@@ -20,11 +20,15 @@ public class City extends SuperEntity {
     private State state;
 
     // Construtores
+    public City(String name) {
+        this.name = name;
+    }
+
     public City(String name, State state) {
         this.name = name;
         this.state = state;
     }
-    
+
     public City(){}
 
     // Métodos Get e Set

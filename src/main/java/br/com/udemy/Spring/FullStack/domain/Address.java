@@ -89,4 +89,8 @@ public class Address extends SuperEntity {
     public void setClient(Client client) {
         this.client = client;
     }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
 }

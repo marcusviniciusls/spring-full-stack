@@ -4,9 +4,12 @@ import br.com.udemy.Spring.FullStack.domain.Address;
 import br.com.udemy.Spring.FullStack.domain.Order;
 import br.com.udemy.Spring.FullStack.dto.AddressDto;
 import br.com.udemy.Spring.FullStack.dto.OrderDto;
+import org.springframework.stereotype.Service;
+
 /**
  * Classe que contém regras de negócios para a entidade Order
  */
+@Service
 public class OrderBusinessRule {
 
     /**
