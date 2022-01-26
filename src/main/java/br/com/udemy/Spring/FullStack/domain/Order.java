@@ -22,6 +22,10 @@ public class Order extends SuperEntity {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
     // Construtores
     public Order(){}
 
@@ -44,5 +48,13 @@ public class Order extends SuperEntity {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

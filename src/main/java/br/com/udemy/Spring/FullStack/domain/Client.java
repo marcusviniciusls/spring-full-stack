@@ -30,6 +30,9 @@ public class Client extends SuperEntity {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Address> listAddress = new ArrayList<>();
 
+    @OneToMany(mappedBy = "client")
+    private List<Order> listOrders = new ArrayList<>();
+
     // Construtores
     public Client(String name, String email, Integer value, String cpgOrCnpj) {
         this.name = name;
@@ -92,6 +95,14 @@ public class Client extends SuperEntity {
 
     public void setListAddress(List<Address> listAddress) {
         this.listAddress = listAddress;
+    }
+
+    public List<Order> getListOrders() {
+        return listOrders;
+    }
+
+    public void addListOrders(Order order){
+        this.listOrders.add(order);
     }
 
     /**

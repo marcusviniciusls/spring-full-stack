@@ -26,7 +26,7 @@ public class Address extends SuperEntity {
     @JoinColumn(name = "clientId")
     private Client client;
     
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "address")
     private List<Order> listOrder = new ArrayList<>();
 
     // Construtores

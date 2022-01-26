@@ -162,6 +162,7 @@ public class TesteConfig implements CommandLineRunner {
 
         pedido.addListaItemPedidos(itemPedido);
         itemPedido.setOrder(pedido);
+        pedido.setClient(cliente);
         clientRepository.saveAll(Arrays.asList(cliente1,cliente));
         orderRepository.save(pedido);
         orderItemRepository.save(itemPedido);
