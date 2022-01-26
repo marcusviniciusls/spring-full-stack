@@ -1,23 +1,35 @@
 package br.com.udemy.Spring.FullStack.form.salvar;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
+
 /**
  * Classe que contém campos para salvar um no Client
  */
 public class ClientFormFull extends ClientForm{
 
     // Atributos
+    @NotEmpty(message = "Name cannot be null")
     private String ddd;
+    @NotEmpty(message = "Name cannot be null")
     private String telephone;
     private String ddd2;
     private String telephone2;
     private String ddd3;
     private String telephone3;
+    @NotEmpty(message = "Name cannot be null")
     private String address;
+    @NotEmpty(message = "Name cannot be null")
     private String number;
     private String complement;
+    @NotEmpty(message = "Name cannot be null")
     private String district;
+    @NotEmpty(message = "Name cannot be null")
     private String cep;
+    @NotEmpty(message = "Name cannot be null")
     private String city;
+    @NotEmpty(message = "Name cannot be null")
     private String uf;
 
     // Construtores

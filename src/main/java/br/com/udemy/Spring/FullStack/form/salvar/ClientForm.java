@@ -1,16 +1,21 @@
 package br.com.udemy.Spring.FullStack.form.salvar;
 
+import br.com.udemy.Spring.FullStack.services.validation.ClientInsert;
+
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 /**
  * Campos necessário para salvar um Client
  */
+@ClientInsert
 public class ClientForm {
 
     // Atributos
     @NotNull
     private String name;
     @NotNull
+    @Email
     private String email;
     @NotNull
     private Integer nature;
