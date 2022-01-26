@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Regra de Negócio Centralizado: Client
@@ -51,13 +52,9 @@ public class ClientService {
      */
     public ClientDto findById(UUID id){
         Optional<Client> optionalClient = clientRepository.findById(id);
-        if (optionalClient.isEmpty()){
-            throw new ResourceNotFoundException("ID CLIENT NOT FOUND");
-        }
-        Client client = optionalClient.get();
-        ClientBusinessRule clientBusinessRule = new ClientBusinessRule();
-        
-        return clientBusinessRule.convertClientDto(client);
+        ClientBusinessRule.checkClientSearch(optionalClient);
+        Client client = ClientBusinessRule.checkClientMarkedDeleted(optionalClient.get());
+        return ClientBusinessRule.convertClientDto(client);
     }
 
     /**
@@ -71,7 +68,9 @@ public class ClientService {
     public Page<ClientDto> findByAll(Integer page, Integer linesPerPage, String orderBy, String direction){
         Pageable pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
         Page<Client> listClient = clientRepository.findAll(pageRequest);
-        Page<ClientDto> listClientDto = listClient.map(ClientBusinessRule::convertClientDto);
+        Page<ClientDto> listClientDto = (Page<ClientDto>) listClient.
+                filter(client -> client.isStatus() == true).
+                map(ClientBusinessRule::convertClientDto);
         return listClientDto;
     }
 

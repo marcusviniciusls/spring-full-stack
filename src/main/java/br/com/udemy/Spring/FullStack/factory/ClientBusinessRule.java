@@ -8,6 +8,7 @@ import br.com.udemy.Spring.FullStack.dto.ClientDto;
 import br.com.udemy.Spring.FullStack.dto.AddressDto;
 import br.com.udemy.Spring.FullStack.dto.TelephoneDto;
 import br.com.udemy.Spring.FullStack.exception.InvalidNatureCustomer;
+import br.com.udemy.Spring.FullStack.exception.ResourceNotFoundException;
 import br.com.udemy.Spring.FullStack.form.atualizar.ClientRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Classe que contém regras de negócios para a entidade Client
@@ -36,10 +38,9 @@ public class ClientBusinessRule {
         setNatureCpfOrCnpj(clientDto,client);
         clientDto.setListTelephones(setListTelephone(client.getListTelephone()));
         clientDto.setListAddress(setListAddress(client.getListAddress()));
-        
+
         return clientDto;
-        
-    }
+ }
 
     /**
      * Regra para setar o CPF ou CNPJ para o ClientDto
@@ -147,5 +148,18 @@ public class ClientBusinessRule {
     public static Client deleteClient(Client client){
         client.setStatus(false);
         return client;
+    }
+
+    public static Client checkClientMarkedDeleted(Client client){
+        if (client.isStatus() == false){
+            throw new ResourceNotFoundException("ID CLIENT NOT FOUND");
+        }
+        return client;
+    }
+
+    public static void checkClientSearch(Optional<Client> optionalClient){
+        if (optionalClient.isEmpty()){
+            throw new ResourceNotFoundException("ID CLIENT NOT FOUND");
+        }
     }
 }

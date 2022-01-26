@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 public class ClientForm {
 
     // Atributos
-    @NotNull
     private String name;
     @NotNull
     @Email

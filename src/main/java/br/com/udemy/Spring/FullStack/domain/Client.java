@@ -15,7 +15,7 @@ import java.util.List;
 public class Client extends SuperEntity {
 
     // Atributos
-    private String name;
+    private String nameFull;
     private String email;
     
     @Enumerated(EnumType.ORDINAL)
@@ -30,12 +30,9 @@ public class Client extends SuperEntity {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Address> listAddress = new ArrayList<>();
 
-    @OneToMany(mappedBy = "client")
-    private List<Order> listOrders = new ArrayList<>();
-
     // Construtores
     public Client(String name, String email, Integer value, String cpgOrCnpj) {
-        this.name = name;
+        this.nameFull = name;
         this.email = email;
         this.nature = Nature.toEnum(value);
         verificarCpfOuCnpj(value,cpgOrCnpj);
@@ -46,7 +43,7 @@ public class Client extends SuperEntity {
 
     // Métodos Gets e Sets
     public String getName() {
-        return name;
+        return nameFull;
     }
 
     public String getEmail() {
@@ -82,7 +79,7 @@ public class Client extends SuperEntity {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nameFull = name;
     }
 
     public void setEmail(String email) {
@@ -95,14 +92,6 @@ public class Client extends SuperEntity {
 
     public void setListAddress(List<Address> listAddress) {
         this.listAddress = listAddress;
-    }
-
-    public List<Order> getListOrders() {
-        return listOrders;
-    }
-
-    public void addListOrders(Order order){
-        this.listOrders.add(order);
     }
 
     /**
