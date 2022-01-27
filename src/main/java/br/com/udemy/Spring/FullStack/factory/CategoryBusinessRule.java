@@ -3,11 +3,13 @@ package br.com.udemy.Spring.FullStack.factory;
 import br.com.udemy.Spring.FullStack.domain.Category;
 import br.com.udemy.Spring.FullStack.domain.Product;
 import br.com.udemy.Spring.FullStack.dto.CategoryDto;
+import br.com.udemy.Spring.FullStack.dto.CategoryListSearch;
 import br.com.udemy.Spring.FullStack.dto.ProductDto;
 import br.com.udemy.Spring.FullStack.form.atualizar.CategoryRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.CategoryForm;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +36,7 @@ public class CategoryBusinessRule {
      * @return - Retorna um objeto do tipo CategoryDto
      */
     public static CategoryDto convertCategoryInCategoryDto(Category category){
-        CategoryDto categoryDto = new CategoryDto(category.getName());
+        CategoryDto categoryDto = new CategoryDto(category.getNome());
         categoryDto.setId(category.getUuid());
         List<Product> listProduct = category.getListProduct();
         for(Product product : listProduct){
@@ -51,7 +53,21 @@ public class CategoryBusinessRule {
      * @return - Retorna o objeto atualizado
      */
     public static Category updateCategory(Category categoryBank, CategoryRefresh categoryNew){
-        categoryBank.setName(categoryNew.getNameCategory());
+        categoryBank.setNome(categoryNew.getNameCategory());
         return categoryBank;
+    }
+
+    /**
+     * Função que recebe uma String de categorias unificadas e demembra em uma única lista
+     * @param listCategory - Recebe uma String com todas as Categorias unificadas
+     * @return - retorna uma lista de cateogrias em lista
+     */
+    public static List<String> decodeCategoryString(String listCategory){
+        List<String> listCategoryName = new ArrayList<>();
+        String[] vetor = listCategory.split(",");
+        for(int i = 0; i <vetor.length; i++){
+            listCategoryName.add(vetor[i]);
+        }
+        return listCategoryName;
     }
 }

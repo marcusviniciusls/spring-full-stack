@@ -6,31 +6,30 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Classe de Entidade para a tabela categoria
  */
 @Table
-@Entity(name = "categories")
+@Entity
 public class Category extends SuperEntity {
 
     // Atributos
-    private String name;
+    private String nome;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
     private List<Product> listProduct = new ArrayList<>();
 
     // Construtores
     public Category(String name) {
-        this.name = name;
+        this.nome = name;
     }
     
     public Category(){}
 
     // Métodos Gets e Sets
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
     public List<Product> getListProduct() {
@@ -41,7 +40,7 @@ public class Category extends SuperEntity {
         this.listProduct.add(product);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

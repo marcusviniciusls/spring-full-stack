@@ -9,11 +9,11 @@ import java.util.List;
  * Classe de entidade para a tabela de produtos
  */
 @Table
-@Entity(name = "products")
+@Entity
 public class Product extends SuperEntity {
 
     // Atributos
-    private String name;
+    private String nome;
     private BigDecimal price;
     
     @ManyToOne
@@ -25,13 +25,13 @@ public class Product extends SuperEntity {
 
     // Construtores
     public Product(String name, BigDecimal price, Category category) {
-        this.name = name;
+        this.nome = name;
         this.price = price;
         this.category = category;
     }
 
     public Product(String name, Category category) {
-        this.name = name;
+        this.nome = name;
         this.category = category;
         this.price = new BigDecimal("0.0");
     }
@@ -39,8 +39,8 @@ public class Product extends SuperEntity {
     public Product(){}
 
     // Métodos gets e sets
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
     public BigDecimal getPrice() {
