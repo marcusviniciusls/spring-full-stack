@@ -1,6 +1,6 @@
 package br.com.udemy.Spring.FullStack.resources;
 
-import br.com.udemy.Spring.FullStack.dto.CategoryListSearch;
+
 import br.com.udemy.Spring.FullStack.dto.ProductFindSalesDto;
 import br.com.udemy.Spring.FullStack.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

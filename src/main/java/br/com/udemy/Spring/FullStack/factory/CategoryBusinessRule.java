@@ -3,7 +3,6 @@ package br.com.udemy.Spring.FullStack.factory;
 import br.com.udemy.Spring.FullStack.domain.Category;
 import br.com.udemy.Spring.FullStack.domain.Product;
 import br.com.udemy.Spring.FullStack.dto.CategoryDto;
-import br.com.udemy.Spring.FullStack.dto.CategoryListSearch;
 import br.com.udemy.Spring.FullStack.dto.ProductDto;
 import br.com.udemy.Spring.FullStack.form.atualizar.CategoryRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.CategoryForm;

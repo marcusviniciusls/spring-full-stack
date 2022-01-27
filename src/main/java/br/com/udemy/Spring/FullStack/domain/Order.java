@@ -1,5 +1,7 @@
 package br.com.udemy.Spring.FullStack.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;

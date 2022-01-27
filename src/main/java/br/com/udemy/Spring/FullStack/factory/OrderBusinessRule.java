@@ -2,9 +2,15 @@ package br.com.udemy.Spring.FullStack.factory;
 
 import br.com.udemy.Spring.FullStack.domain.Address;
 import br.com.udemy.Spring.FullStack.domain.Order;
+import br.com.udemy.Spring.FullStack.domain.OrderItem;
 import br.com.udemy.Spring.FullStack.dto.AddressDto;
+import br.com.udemy.Spring.FullStack.dto.ClientDto;
 import br.com.udemy.Spring.FullStack.dto.OrderDto;
+import br.com.udemy.Spring.FullStack.dto.OrderItemDto;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe que contém regras de negócios para a entidade Order
@@ -23,6 +29,13 @@ public class OrderBusinessRule {
         orderDto.setDate(order.getDate());
         AddressDto addressDto = convertAddressDto(order.getAddress());
         orderDto.setEndereco(addressDto);
+        ClientDto clientDto = ClientBusinessRule.convertClientDto(order.getClient());
+        orderDto.setClientDto(clientDto);
+        List<OrderItemDto> listOrderItemDto = new ArrayList<>();
+        for (OrderItem orderItem : order.getListOrderItem()){
+            listOrderItemDto.add(OrderItemBusinessRule.convertOrderItemInOrderItemDto(orderItem));
+        }
+        orderDto.setOrderItemDto(listOrderItemDto);
 
         return orderDto;
     }
