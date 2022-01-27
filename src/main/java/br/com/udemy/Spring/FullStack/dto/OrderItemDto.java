@@ -1,5 +1,7 @@
 package br.com.udemy.Spring.FullStack.dto;
 
+import br.com.udemy.Spring.FullStack.factory.OrderItemBusinessRule;
+
 import java.math.BigDecimal;
 
 /**
@@ -63,5 +65,9 @@ public class OrderItemDto {
 
     public void setProductDto(ProductDto productDto) {
         this.productDto = productDto;
+    }
+
+    public BigDecimal getSubTotal(){
+        return OrderItemBusinessRule.getSubTotalOrderItem(this.discount, this.quantity, this.unityPrice);
     }
 }

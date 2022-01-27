@@ -6,6 +6,8 @@ import br.com.udemy.Spring.FullStack.dto.OrderItemDto;
 import br.com.udemy.Spring.FullStack.dto.ProductDto;
 import org.aspectj.weaver.ast.Or;
 
+import java.math.BigDecimal;
+
 /**
  * Classe com regras de negócios de OrderItem
  */
@@ -27,5 +29,10 @@ public class OrderItemBusinessRule {
         orderItemDto.setProductDto(productDto);
 
         return orderItemDto;
+    }
+
+    public static BigDecimal getSubTotalOrderItem(BigDecimal discount, Integer quantity, BigDecimal priceUnit){
+        BigDecimal valueWithoutDiscount = priceUnit.multiply(BigDecimal.valueOf(quantity));
+        return valueWithoutDiscount.subtract(discount);
     }
 }

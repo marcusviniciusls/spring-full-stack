@@ -156,16 +156,21 @@ public class TesteConfig implements CommandLineRunner {
         cliente1.addListaTelefone(telefone2);
 
         OrderItem itemPedido = new OrderItem(new BigDecimal("100.00"), 3, new BigDecimal("500"));
+        OrderItem itemPedido1 = new OrderItem(new BigDecimal("0.00"), 1, new BigDecimal("500"));
         itemPedido.setProduct(produto);
+        itemPedido1.setProduct(produto1);
 
         Order pedido = new Order(endereco);
 
         pedido.addListaItemPedidos(itemPedido);
+        pedido.addListaItemPedidos(itemPedido1);
         itemPedido.setOrder(pedido);
+        itemPedido1.setOrder(pedido);
         pedido.setClient(cliente);
         clientRepository.saveAll(Arrays.asList(cliente1,cliente));
         orderRepository.save(pedido);
         orderItemRepository.save(itemPedido);
+        orderItemRepository.save(itemPedido1);
         addressRepository.saveAll(Arrays.asList(endereco,endereco1,endereco2));
 
         telephoneRepository.save(telefone);

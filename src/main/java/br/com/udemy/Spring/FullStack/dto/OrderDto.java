@@ -1,9 +1,11 @@
 package br.com.udemy.Spring.FullStack.dto;
 
 import br.com.udemy.Spring.FullStack.domain.Client;
+import br.com.udemy.Spring.FullStack.factory.OrderBusinessRule;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,5 +68,9 @@ public class OrderDto {
 
     public List<OrderItemDto> getOrderItemDto() {
         return orderItemDto;
+    }
+
+    public BigDecimal getTotal(){
+        return OrderBusinessRule.getTotalOrder(this.orderItemDto);
     }
 }

@@ -9,6 +9,7 @@ import br.com.udemy.Spring.FullStack.dto.OrderDto;
 import br.com.udemy.Spring.FullStack.dto.OrderItemDto;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,5 +56,13 @@ public class OrderBusinessRule {
         addressDto.setNumber(address.getNumber());
 
         return addressDto;
+    }
+
+    public static BigDecimal getTotalOrder(List<OrderItemDto> listOrderItemDto){
+        BigDecimal valueTotal = BigDecimal.ZERO;
+        for(OrderItemDto orderItemDto : listOrderItemDto){
+            valueTotal = valueTotal.add(orderItemDto.getSubTotal());
+        }
+        return valueTotal;
     }
 }
