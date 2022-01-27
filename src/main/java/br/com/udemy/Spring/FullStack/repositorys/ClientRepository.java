@@ -20,4 +20,7 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
      */
     Client findByEmail(String email);
 
+    @Query("SELECT c FROM Client c WHERE c.status = true")
+    Page<Client> findByAllClientAtivo(Pageable pageable);
+
 }

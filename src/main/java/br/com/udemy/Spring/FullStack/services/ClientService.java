@@ -67,10 +67,14 @@ public class ClientService {
      */
     public Page<ClientDto> findByAll(Integer page, Integer linesPerPage, String orderBy, String direction){
         Pageable pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
-        Page<Client> listClient = clientRepository.findAll(pageRequest);
-        Page<ClientDto> listClientDto = (Page<ClientDto>) listClient.
-                filter(client -> client.isStatus() == true).
-                map(ClientBusinessRule::convertClientDto);
+        Page<Client> listClient = clientRepository.findByAllClientAtivo(pageRequest);
+        //List<Client> listClientTest = clientRepository.findByAllClientAtivo();
+        //Page<ClientDto> listClientDto = (Page<ClientDto>) listClient.
+                //filter(client -> client.isStatus() == true).
+                //map(ClientBusinessRule::convertClientDto);
+        //List<Client> listClient = clientRepository.findAll();
+        //List<ClientDto> listClientDto = listClient.stream().map(ClientBusinessRule::convertClientDto).collect(Collectors.toList());
+        Page<ClientDto> listClientDto = listClient.map(ClientBusinessRule::convertClientDto);
         return listClientDto;
     }
 

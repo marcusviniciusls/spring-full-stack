@@ -11,11 +11,11 @@ import java.util.List;
  * Classe de entidade da tabela cliente
  */
 @Table
-@Entity(name = "clients")
+@Entity
 public class Client extends SuperEntity {
 
     // Atributos
-    private String nameFull;
+    private String nome;
     private String email;
     
     @Enumerated(EnumType.ORDINAL)
@@ -32,7 +32,7 @@ public class Client extends SuperEntity {
 
     // Construtores
     public Client(String name, String email, Integer value, String cpgOrCnpj) {
-        this.nameFull = name;
+        this.nome = name;
         this.email = email;
         this.nature = Nature.toEnum(value);
         verificarCpfOuCnpj(value,cpgOrCnpj);
@@ -43,7 +43,7 @@ public class Client extends SuperEntity {
 
     // Métodos Gets e Sets
     public String getName() {
-        return nameFull;
+        return nome;
     }
 
     public String getEmail() {
@@ -79,7 +79,7 @@ public class Client extends SuperEntity {
     }
 
     public void setName(String name) {
-        this.nameFull = name;
+        this.nome = name;
     }
 
     public void setEmail(String email) {
