@@ -25,7 +25,7 @@ public class OrderItem extends SuperEntity {
     
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order order;
+    private Pedido order;
 
     // Construtores
     public OrderItem(BigDecimal discount, Integer quantity, BigDecimal unityPrice) {
@@ -68,7 +68,23 @@ public class OrderItem extends SuperEntity {
         this.product = product;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(Pedido order) {
         this.order = order;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setUnityPrice(BigDecimal unityPrice) {
+        this.unityPrice = unityPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

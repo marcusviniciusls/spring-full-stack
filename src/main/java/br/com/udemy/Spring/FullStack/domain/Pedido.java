@@ -1,7 +1,5 @@
 package br.com.udemy.Spring.FullStack.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,8 +9,8 @@ import java.util.List;
  * Classe de entidade para a tabela de Pedidos
  */
 @Table
-@Entity(name = "orders")
-public class Order extends SuperEntity {
+@Entity
+public class Pedido extends SuperEntity {
 
     // Atributos
     private LocalDate date = LocalDate.now();
@@ -28,10 +26,13 @@ public class Order extends SuperEntity {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    // Construtores
-    public Order(){}
+    @OneToMany(mappedBy = "order")
+    private List<Payment> payment = new ArrayList<>();
 
-    public Order(Address address) {
+    // Construtores
+    public Pedido(){}
+
+    public Pedido(Address address) {
         this.address = address;
     }
 
@@ -58,5 +59,21 @@ public class Order extends SuperEntity {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public List<Payment> getPayment() {
+        return payment;
+    }
+
+    public void setPayment(List<Payment> payment) {
+        this.payment = payment;
+    }
+
+    public void addListPayment(Payment payment){
+        this.payment.add(payment);
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

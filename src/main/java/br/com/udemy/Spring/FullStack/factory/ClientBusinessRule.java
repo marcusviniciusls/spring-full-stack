@@ -11,18 +11,24 @@ import br.com.udemy.Spring.FullStack.exception.InvalidNatureCustomer;
 import br.com.udemy.Spring.FullStack.exception.ResourceNotFoundException;
 import br.com.udemy.Spring.FullStack.form.atualizar.ClientRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
+import br.com.udemy.Spring.FullStack.repositorys.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Classe que contém regras de negócios para a entidade Client
  */
 @Service
 public class ClientBusinessRule {
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     /**
      * Converte um objeto do tipo Cleint em ClientDto
@@ -161,5 +167,12 @@ public class ClientBusinessRule {
         if (optionalClient.isEmpty()){
             throw new ResourceNotFoundException("ID CLIENT NOT FOUND");
         }
+    }
+
+    public Client findByClientNoConversion(UUID uuid){
+        Optional<Client> optionalClient = clientRepository.findById(uuid);
+        checkClientSearch(optionalClient);
+        Client client = checkClientMarkedDeleted(optionalClient.get());
+        return client;
     }
 }

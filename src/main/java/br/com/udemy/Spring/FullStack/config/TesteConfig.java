@@ -160,7 +160,7 @@ public class TesteConfig implements CommandLineRunner {
         itemPedido.setProduct(produto);
         itemPedido1.setProduct(produto1);
 
-        Order pedido = new Order(endereco);
+        Pedido pedido = new Pedido(endereco);
 
         pedido.addListaItemPedidos(itemPedido);
         pedido.addListaItemPedidos(itemPedido1);

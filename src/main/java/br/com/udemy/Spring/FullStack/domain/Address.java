@@ -27,7 +27,7 @@ public class Address extends SuperEntity {
     private Client client;
     
     @OneToMany(mappedBy = "address")
-    private List<Order> listOrder = new ArrayList<>();
+    private List<Pedido> listOrder = new ArrayList<>();
 
     // Construtores
     public Address(String address, String number, String district, String cep, City city) {
@@ -78,11 +78,11 @@ public class Address extends SuperEntity {
         return client;
     }
 
-    public List<Order> getListOrder() {
+    public List<Pedido> getListOrder() {
         return listOrder;
     }
     
-    public void addListaPedidos(Order pedido){
+    public void addListaPedidos(Pedido pedido){
         this.listOrder.add(pedido);
     }
 

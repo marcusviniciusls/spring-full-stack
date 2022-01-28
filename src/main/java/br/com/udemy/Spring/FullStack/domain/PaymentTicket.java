@@ -1,31 +1,33 @@
 package br.com.udemy.Spring.FullStack.domain;
 
 import br.com.udemy.Spring.FullStack.domain.enums.StatePayment;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.Objects;
 /**
  * Classe filha de Payment
  */
+@Table
+@Entity
+@JsonTypeName("pagamentoComBoleto")
 public class PaymentTicket extends Payment {
 
     // Atributos
-    @Temporal(TemporalType.DATE)
     private LocalDate dueDate;
-    
-    @Temporal(TemporalType.DATE)
     private LocalDate paymentDate;
 
     // Construtores
-    public PaymentTicket(StatePayment statePayment, Order order, LocalDate dueDate, LocalDate paymentDate) {
+    public PaymentTicket(StatePayment statePayment, Pedido order, LocalDate dueDate, LocalDate paymentDate) {
         super(statePayment, order);
         this.dueDate = dueDate;
         this.paymentDate = paymentDate;
     }
 
-    public PaymentTicket(StatePayment statePayment, Order order, LocalDate dueDate) {
+    public PaymentTicket(){}
+
+    public PaymentTicket(StatePayment statePayment, Pedido order, LocalDate dueDate) {
         super(statePayment, order);
         this.dueDate = dueDate;
     }
@@ -37,5 +39,13 @@ public class PaymentTicket extends Payment {
 
     public LocalDate getPaymentDate() {
         return paymentDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setPaymentDate(LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
     }
 }

@@ -10,15 +10,13 @@ import java.math.BigDecimal;
 public class OrderItemDto {
 
     // Atributos
-    private BigDecimal discount;
     private Integer quantity;
     private BigDecimal unityPrice;
     private BigDecimal totalPrice;
     private ProductDto productDto;
 
     //Construtores
-    public OrderItemDto(BigDecimal discount, Integer quantity, BigDecimal unityPrice, BigDecimal totalPrice, ProductDto productDto) {
-        this.discount = discount;
+    public OrderItemDto(Integer quantity, BigDecimal unityPrice, BigDecimal totalPrice, ProductDto productDto) {
         this.quantity = quantity;
         this.unityPrice = unityPrice;
         this.totalPrice = totalPrice;
@@ -27,14 +25,6 @@ public class OrderItemDto {
     public OrderItemDto(){}
 
     // Métodos Gets e Sets
-    public BigDecimal getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
-    }
-
     public Integer getQuantity() {
         return quantity;
     }
@@ -68,6 +58,6 @@ public class OrderItemDto {
     }
 
     public BigDecimal getSubTotal(){
-        return OrderItemBusinessRule.getSubTotalOrderItem(this.discount, this.quantity, this.unityPrice);
+        return OrderItemBusinessRule.getSubTotalOrderItem(this.quantity, this.unityPrice);
     }
 }

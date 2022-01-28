@@ -1,7 +1,7 @@
 package br.com.udemy.Spring.FullStack.factory;
 
 import br.com.udemy.Spring.FullStack.domain.Address;
-import br.com.udemy.Spring.FullStack.domain.Order;
+import br.com.udemy.Spring.FullStack.domain.Pedido;
 import br.com.udemy.Spring.FullStack.domain.OrderItem;
 import br.com.udemy.Spring.FullStack.dto.AddressDto;
 import br.com.udemy.Spring.FullStack.dto.ClientDto;
@@ -24,7 +24,7 @@ public class OrderBusinessRule {
      * @param order - Recebe um objeto do tipo order
      * @return - Retorna um objeto OrderDto
      */
-    public static OrderDto convertOrderInOrderDto(Order order){
+    public static OrderDto convertOrderInOrderDto(Pedido order){
         OrderDto orderDto = new OrderDto();
 
         orderDto.setDate(order.getDate());
