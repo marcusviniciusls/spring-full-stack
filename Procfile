@@ -1,2 +1,2 @@
 web: java -Dserver.port=$PORT -Dspring.profiles.active=prod $JAVA_OPTS -jar
-target/Spring-FullStack-0.0.1-SNAPSHOT.jar
+target/SpringFullStack-0.0.1-SNAPSHOT.jar
