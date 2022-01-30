@@ -2,8 +2,11 @@ package br.com.udemy.Spring.FullStack.config;
 
 import br.com.udemy.Spring.FullStack.domain.*;
 import br.com.udemy.Spring.FullStack.repositorys.*;
+import br.com.udemy.Spring.FullStack.services.EmailService;
+import br.com.udemy.Spring.FullStack.services.MockEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
@@ -43,6 +46,11 @@ public class TesteConfig implements CommandLineRunner {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Bean
+    public EmailService emailService(){
+        return new MockEmailService();
+    }
     
     @Override
     public void run(String... args) throws Exception {

@@ -5,6 +5,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Classe de entidades para a tabela associativa entre Pedidos e Produtos (Pedidos_Itens)
@@ -14,10 +16,10 @@ import java.math.BigDecimal;
 public class OrderItem extends SuperEntity {
 
     // Atributos
-    private BigDecimal discount;
+    private BigDecimal discount = BigDecimal.ZERO;
     private Integer quantity;
-    private BigDecimal unityPrice;
-    private BigDecimal totalPrice;
+    private BigDecimal unityPrice = BigDecimal.ZERO;
+    private BigDecimal totalPrice = BigDecimal.ZERO;
     
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -86,5 +88,17 @@ public class OrderItem extends SuperEntity {
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Desconto: " + numberFormat.format(this.getDiscount()));
+        stringBuilder.append(" Quantidade: " + this.getQuantity());
+        stringBuilder.append(" Preço Unitário: " + numberFormat.format(this.getUnityPrice()));
+        stringBuilder.append(" Preço Total: " + numberFormat.format(this.getTotalPrice()));
+
+        return stringBuilder.toString();
     }
 }

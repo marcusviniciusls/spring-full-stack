@@ -37,6 +37,9 @@ public class OrderService {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     public OrderDto findById(UUID id){
         Optional<Pedido> optionalOrder = orderRepository.findById(id);
         if (optionalOrder.isEmpty()){
@@ -86,5 +89,6 @@ public class OrderService {
             order.addListPayment(payment);
             paymentRepository.save(payment);
         }
+        emailService.sendOrderConfirmationEmail(order);
     }
 }

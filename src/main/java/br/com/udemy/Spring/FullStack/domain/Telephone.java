@@ -42,4 +42,13 @@ public class Telephone extends SuperEntity {
        this.client = client;
    }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("DDD: " + this.getDdd());
+        stringBuilder.append(" Número: " + this.telephone);
+
+        return stringBuilder.toString();
+    }
 }
