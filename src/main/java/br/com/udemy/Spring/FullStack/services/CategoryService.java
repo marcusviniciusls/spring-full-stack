@@ -8,6 +8,7 @@ import br.com.udemy.Spring.FullStack.form.atualizar.CategoryRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.CategoryForm;
 import br.com.udemy.Spring.FullStack.repositorys.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +35,9 @@ public class CategoryService {
     public CategoryDto findById(UUID id){
         Optional<Category> categoryOptional = categoryRepository.findById(id);
         if (categoryOptional.isEmpty()){
+            throw new ResourceNotFoundException("Category Not Found");
+        }
+        if (categoryOptional.get().isStatus() != true){
             throw new ResourceNotFoundException("Category Not Found");
         }
         Category category = categoryOptional.get();
@@ -63,6 +67,9 @@ public class CategoryService {
         if (optionalCategory.isEmpty()){
             throw new ResourceNotFoundException("Category Not Found");
         }
+        if (optionalCategory.get().isStatus() != true){
+            throw new ResourceNotFoundException("Category Not Found");
+        }
         Category category = optionalCategory.get();
         Category categorySave = CategoryBusinessRule.updateCategory(category, categoryRefresh);
         categoryRepository.save(categorySave);
@@ -73,7 +80,14 @@ public class CategoryService {
      * @param id - Recebe o id do Category a ser excluído
      */
     public void deteleById(UUID id){
-        categoryRepository.deleteById(id);
+        try{
+            categoryRepository.deleteById(id);
+        } catch (DataIntegrityViolationException dataIntegrityViolationException){
+            Category category = categoryRepository.findById(id).get();
+            category.setStatus(false);
+            categoryRepository.save(category);
+        }
+
     }
 
     /**
