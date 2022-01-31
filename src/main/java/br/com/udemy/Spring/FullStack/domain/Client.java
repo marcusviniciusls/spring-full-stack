@@ -1,12 +1,16 @@
 package br.com.udemy.Spring.FullStack.domain;
 
 import br.com.udemy.Spring.FullStack.domain.enums.Nature;
+import br.com.udemy.Spring.FullStack.domain.enums.Profile;
 import br.com.udemy.Spring.FullStack.exception.InvalidNatureCustomer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Classe de entidade da tabela cliente
@@ -33,6 +37,10 @@ public class Client extends SuperEntity {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Address> listAddress = new ArrayList<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "profile")
+    private Set<Integer> profile =  new HashSet<>();
+
     // Construtores
     public Client(String name, String email, Integer value, String cpgOrCnpj) {
         this.nome = name;
@@ -40,9 +48,12 @@ public class Client extends SuperEntity {
         this.nature = Nature.toEnum(value);
         verificarCpfOuCnpj(value,cpgOrCnpj);
         setNature(value);
+        addProfile(Profile.CLIENT);
     }
     
-    public Client(){}
+    public Client(){
+        addProfile(Profile.CLIENT);
+    }
 
     // Métodos Gets e Sets
     public String getNome() {
@@ -103,6 +114,14 @@ public class Client extends SuperEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Profile> getProfile(){
+        return profile.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addProfile(Profile profile){
+        this.profile.add(profile.getValue());
     }
 
     /**
