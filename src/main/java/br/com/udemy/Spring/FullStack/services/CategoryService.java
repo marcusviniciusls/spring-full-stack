@@ -86,7 +86,7 @@ public class CategoryService {
      */
     public Page<CategoryDto> findAll(Integer page, Integer linesPerPage, String orderBy, String direction){
         Pageable pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
-        Page<Category> listCategory = categoryRepository.findAll(pageRequest);
+        Page<Category> listCategory = categoryRepository.findAllCategory(pageRequest);
         Page<CategoryDto> listCategoryDto = listCategory.map(CategoryBusinessRule::convertCategoryInCategoryDto);
         return listCategoryDto;
     }

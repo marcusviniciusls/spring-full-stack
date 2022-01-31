@@ -6,10 +6,13 @@ import br.com.udemy.Spring.FullStack.dto.CategoryDto;
 import br.com.udemy.Spring.FullStack.dto.ProductDto;
 import br.com.udemy.Spring.FullStack.form.atualizar.CategoryRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.CategoryForm;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Classe que contém regras de negócios para a entidade Category

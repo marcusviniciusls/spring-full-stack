@@ -76,7 +76,8 @@ public class TesteConfig implements CommandLineRunner {
         Category categoria16 = new Category("Escritório");
         Category categoria17 = new Category("Elétrico");
         Category categoria18 = new Category("Vestuário");
-        Category categoria19 = new Category("Biblioteca");
+        Category categoria19 = new Category("CATEGORIA QUE NÃO DEVERÁ APARECER");
+        categoria19.setStatus(false);
         categoryRepository.saveAll(Arrays.asList(categoria,categoria1,categoria2,categoria3,categoria4,
                 categoria5,categoria6,categoria7,categoria8,categoria9,categoria10,categoria11,categoria12,
                 categoria13,categoria14,categoria15,categoria16,categoria17,categoria18,categoria19));
