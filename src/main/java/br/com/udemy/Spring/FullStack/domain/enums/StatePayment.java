@@ -14,4 +14,11 @@ public enum StatePayment {
     StatePayment(int i) {
         this.value = i;
     }
+
+    @Override
+    public String toString() {
+        return "StatePayment{" +
+                "value=" + value +
+                '}';
+    }
 }

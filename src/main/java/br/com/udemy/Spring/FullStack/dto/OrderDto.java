@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +17,13 @@ import java.util.List;
 public class OrderDto {
 
     // Atributos
-    private LocalDate date;
+    private LocalDateTime date;
     private AddressDto addressDto;
     private ClientDto clientDto;
     private List<OrderItemDto> orderItemDto = new ArrayList<>();
 
     // Construtores
-    public OrderDto(LocalDate date, AddressDto addressDto) {
+    public OrderDto(LocalDateTime date, AddressDto addressDto) {
         this.date = date;
         this.addressDto = addressDto;
     }
@@ -30,11 +31,11 @@ public class OrderDto {
     public OrderDto(){}
 
     // Métodos Gets e Sets
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

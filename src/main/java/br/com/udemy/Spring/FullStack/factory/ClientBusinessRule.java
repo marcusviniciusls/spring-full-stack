@@ -40,7 +40,7 @@ public class ClientBusinessRule {
         
         clientDto.setEmail(client.getEmail());
         clientDto.setNature(client.getNature());
-        clientDto.setName(client.getName());
+        clientDto.setName(client.getNome());
         setNatureCpfOrCnpj(clientDto,client);
         clientDto.setListTelephones(setListTelephone(client.getListTelephone()));
         clientDto.setListAddress(setListAddress(client.getListAddress()));

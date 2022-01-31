@@ -4,6 +4,7 @@ import br.com.udemy.Spring.FullStack.domain.*;
 import br.com.udemy.Spring.FullStack.repositorys.*;
 import br.com.udemy.Spring.FullStack.services.EmailService;
 import br.com.udemy.Spring.FullStack.services.MockEmailService;
+import br.com.udemy.Spring.FullStack.services.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -49,7 +50,7 @@ public class TesteConfig implements CommandLineRunner {
 
     @Bean
     public EmailService emailService(){
-        return new MockEmailService();
+        return new SmtpEmailService();
     }
     
     @Override
@@ -148,7 +149,7 @@ public class TesteConfig implements CommandLineRunner {
         cliente.addListaEndereco(endereco);
         cliente.addListaEndereco(endereco1);
 
-        Client cliente1 = new Client("Antonio Lima","antonio@gmail.com", 1, "46130373368");
+        Client cliente1 = new Client("Antonio Lima","viniciusmls@outlook.com", 1, "46130373368");
         cliente1.addListaEndereco(endereco2);
 
         endereco.setClient(cliente);

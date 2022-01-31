@@ -27,7 +27,7 @@ public class OrderBusinessRule {
     public static OrderDto convertOrderInOrderDto(Pedido order){
         OrderDto orderDto = new OrderDto();
 
-        orderDto.setDate(order.getDate());
+        orderDto.setDate(order.getData());
         AddressDto addressDto = convertAddressDto(order.getAddress());
         orderDto.setEndereco(addressDto);
         ClientDto clientDto = ClientBusinessRule.convertClientDto(order.getClient());

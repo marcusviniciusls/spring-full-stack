@@ -42,7 +42,7 @@ public class Client extends SuperEntity {
     public Client(){}
 
     // Métodos Gets e Sets
-    public String getName() {
+    public String getNome() {
         return nome;
     }
 

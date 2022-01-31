@@ -1,15 +1,29 @@
 package br.com.udemy.Spring.FullStack.services;
 
 import br.com.udemy.Spring.FullStack.domain.Pedido;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.Date;
 
 public abstract class AbstractEmailService implements EmailService{
 
     @Value("${default.sender}")
     private String sender;
+
+    @Autowired
+    private TemplateEngine templateEngine;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Override
     public void sendOrderConfirmationEmail(Pedido order){
@@ -26,5 +40,33 @@ public abstract class AbstractEmailService implements EmailService{
         simpleMailMessage.setText(order.toString());
 
         return simpleMailMessage;
+    }
+
+    protected String htmlFromTemplatePedido(Pedido order){
+        Context context = new Context();
+        context.setVariable("pedido",order);
+        return templateEngine.process("email/confirmacaoPedido", context);
+    }
+
+    @Override
+    public void sendOrderConfirmationHtmlEmail(Pedido order){
+        try{
+            MimeMessage mineMessage = prepareMimeMessageFromPedido(order);
+            sendHtmlEmail(mineMessage);
+        } catch (MessagingException e){
+            sendOrderConfirmationEmail(order);
+        }
+
+    }
+
+    protected MimeMessage prepareMimeMessageFromPedido(Pedido order) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true);
+        mimeMessageHelper.setTo(order.getClient().getEmail());
+        mimeMessageHelper.setFrom(sender);
+        mimeMessageHelper.setSubject("Pedido Confirmado!");
+        mimeMessageHelper.setSentDate(new Date(System.currentTimeMillis()));
+        mimeMessageHelper.setText(htmlFromTemplatePedido(order),true);
+        return mimeMessage;
     }
 }

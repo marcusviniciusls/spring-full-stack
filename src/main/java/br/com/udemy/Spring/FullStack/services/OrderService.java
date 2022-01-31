@@ -73,6 +73,7 @@ public class OrderService {
             order.addListaItemPedidos(orderItem);
             listOrderItem.add(orderItem);
         }
+        order.calculeValueTotal();
         orderRepository.save(order);
         orderItemRepository.saveAll(order.getListOrderItem());
         String verifyPayment = pedidoFormFull.getPayment().toUpperCase();
@@ -89,6 +90,6 @@ public class OrderService {
             order.addListPayment(payment);
             paymentRepository.save(payment);
         }
-        emailService.sendOrderConfirmationEmail(order);
+        emailService.sendOrderConfirmationHtmlEmail(order);
     }
 }

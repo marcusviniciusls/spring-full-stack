@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -17,7 +18,7 @@ import java.util.Locale;
 public class Pedido extends SuperEntity {
 
     // Atributos
-    private LocalDate date = LocalDate.now();
+    private LocalDateTime data = LocalDateTime.now();
     
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> listOrderItem = new ArrayList<>();
@@ -33,6 +34,8 @@ public class Pedido extends SuperEntity {
     @OneToMany(mappedBy = "order")
     private List<Payment> payment = new ArrayList<>();
 
+    private BigDecimal valueTotal = getValorTotal();
+
     // Construtores
     public Pedido(){}
 
@@ -41,8 +44,8 @@ public class Pedido extends SuperEntity {
     }
 
     // Métodos gets e sets
-    public LocalDate getDate() {
-        return date;
+    public LocalDateTime getData() {
+        return data;
     }
 
     public List<OrderItem> getListOrderItem() {
@@ -89,13 +92,26 @@ public class Pedido extends SuperEntity {
         return valueTotal;
     }
 
+    public BigDecimal getValueTotal() {
+        return valueTotal;
+    }
+
+    public void calculeValueTotal(){
+        BigDecimal valueTotal = this.getValorTotal();
+        this.setValueTotal(valueTotal);
+    }
+
+    public void setValueTotal(BigDecimal valueTotal) {
+        this.valueTotal = valueTotal;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
-        stringBuilder.append("Data: " + this.getDate());
+        stringBuilder.append("Data: " + this.getData());
         stringBuilder.append(" Endereço: " + this.getAddress().getAddress());
         stringBuilder.append(" Número: " + this.getAddress().getNumber());
         stringBuilder.append(" Complemento: " + this.getAddress().getComplement());
@@ -103,7 +119,7 @@ public class Pedido extends SuperEntity {
         stringBuilder.append(" Cidade: " + this.getAddress().getCity().getName());
         stringBuilder.append(" CEP: " + this.getAddress().getCep());
         stringBuilder.append(" Cidade: " + this.getAddress().getCity().getState().getName());
-        stringBuilder.append(" Nome do Cliente: " + this.getClient().getName());
+        stringBuilder.append(" Nome do Cliente: " + this.getClient().getNome());
         stringBuilder.append(" E-mail: " + this.getClient().getEmail());
         stringBuilder.append(" Telefone: " + this.getClient().getListTelephone().toString());
         stringBuilder.append(" Valor Total: " + numberFormat.format(this.getValorTotal()));

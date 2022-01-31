@@ -65,4 +65,19 @@ public class ResourceExceptionHandler {
         }
         return ResponseEntity.status(httpStatus).body(validationError);
     }
+
+    /**
+     * Método que captura a excessão de exception
+     * Essa excessão é lançada quando não tratada nessa classe
+     * @param exception - Excessão capturada
+     * @param httpServletRequest - Requisição capturada
+     * @return - Resposta para o Controller
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<StandardError> exceptionErrorDefault(Exception exception, HttpServletRequest httpServletRequest) {
+       String error = "Exception Error Default";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError erro = new StandardError(Instant.now(), httpStatus.value(), error, exception.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(erro);
+    }
 }
