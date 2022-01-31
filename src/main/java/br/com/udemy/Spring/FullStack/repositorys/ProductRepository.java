@@ -23,7 +23,8 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
      */
     @Query("SELECT p FROM Product p INNER JOIN Category c " +
             "ON p.category = c.uuid " +
-            "WHERE LOWER(p.nome) LIKE LOWER(CONCAT('%',:nome,'%')) AND c.nome in :listNameCategory")
+            "WHERE LOWER(p.nome) LIKE LOWER(CONCAT('%',:nome,'%')) AND c.nome in :listNameCategory AND p.status = true" +
+            " AND c.status = true")
     Page<Product> findProductNamePerCategory(@Param("nome") String nameProduct,
                                              @Param("listNameCategory") List<String> listNameCategory, Pageable pageable);
 }
