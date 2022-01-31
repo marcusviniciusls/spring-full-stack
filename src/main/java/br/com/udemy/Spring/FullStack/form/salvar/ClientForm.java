@@ -3,6 +3,7 @@ package br.com.udemy.Spring.FullStack.form.salvar;
 import br.com.udemy.Spring.FullStack.services.validation.ClientInsert;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -20,6 +21,8 @@ public class ClientForm {
     private Integer nature;
     @NotNull
     private String cpfOrCnpj;
+    @NotEmpty(message = "Name cannot be null")
+    private String password;
 
     // Construtores
     public ClientForm(String name, String email, Integer nature, String cpfOrCnpj) {
@@ -58,5 +61,13 @@ public class ClientForm {
 
     public String getCpfOrCnpj() {
         return cpfOrCnpj;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

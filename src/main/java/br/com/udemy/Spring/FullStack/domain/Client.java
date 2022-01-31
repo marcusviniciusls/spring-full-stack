@@ -2,6 +2,7 @@ package br.com.udemy.Spring.FullStack.domain;
 
 import br.com.udemy.Spring.FullStack.domain.enums.Nature;
 import br.com.udemy.Spring.FullStack.exception.InvalidNatureCustomer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class Client extends SuperEntity {
     // Atributos
     private String nome;
     private String email;
+    @JsonIgnore
+    private String password;
     
     @Enumerated(EnumType.ORDINAL)
     private Nature nature;
@@ -92,6 +95,14 @@ public class Client extends SuperEntity {
 
     public void setListAddress(List<Address> listAddress) {
         this.listAddress = listAddress;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**

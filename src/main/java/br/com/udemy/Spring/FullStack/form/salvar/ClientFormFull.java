@@ -31,6 +31,8 @@ public class ClientFormFull extends ClientForm{
     private String city;
     @NotEmpty(message = "Name cannot be null")
     private String uf;
+    @NotEmpty(message = "Name cannot be null")
+    private String password;
 
     // Construtores
     public ClientFormFull(String name, String email, Integer nature, String cpfOrCnpj, String ddd, String telephone, String address, String number, String district, String cep, String city, String uf) {
@@ -150,5 +152,13 @@ public class ClientFormFull extends ClientForm{
 
     public void setUf(String uf) {
         this.uf = uf;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

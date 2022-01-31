@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -52,6 +53,9 @@ public class TesteConfig implements CommandLineRunner {
     public EmailService emailService(){
         return new SmtpEmailService();
     }
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     
     @Override
     public void run(String... args) throws Exception {
@@ -154,10 +158,12 @@ public class TesteConfig implements CommandLineRunner {
         Client cliente = new Client("Marcus Vinicius","viniciusmls@outlook.com", 0, "467518998-90");
         cliente.addListaEndereco(endereco);
         cliente.addListaEndereco(endereco1);
+        cliente.setPassword(bCryptPasswordEncoder.encode("12345"));
 
         Client cliente1 = new Client("Antonio Lima","viniciusmls@outlook.com", 1, "46130373368");
         cliente1.addListaEndereco(endereco2);
         cliente1.setStatus(false);
+        cliente1.setPassword(bCryptPasswordEncoder.encode("9876"));
 
         endereco.setClient(cliente);
         endereco1.setClient(cliente);

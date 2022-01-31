@@ -13,6 +13,7 @@ import br.com.udemy.Spring.FullStack.form.atualizar.ClientRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
 import br.com.udemy.Spring.FullStack.repositorys.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,9 @@ public class ClientBusinessRule {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private static BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * Converte um objeto do tipo Cleint em ClientDto
@@ -114,6 +118,7 @@ public class ClientBusinessRule {
      */
     public static Client convertClientFormInClient(ClientForm clientForm){
         Client client = new Client(clientForm.getName(), clientForm.getEmail(), clientForm.getNature(), clientForm.getCpfOrCnpj());
+        client.setPassword(bCryptPasswordEncoder.encode(clientForm.getPassword()));
         return client;
     }
 
