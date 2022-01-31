@@ -152,6 +152,7 @@ public class TesteConfig implements CommandLineRunner {
 
         Client cliente1 = new Client("Antonio Lima","viniciusmls@outlook.com", 1, "46130373368");
         cliente1.addListaEndereco(endereco2);
+        cliente1.setStatus(false);
 
         endereco.setClient(cliente);
         endereco1.setClient(cliente);

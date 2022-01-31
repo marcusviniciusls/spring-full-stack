@@ -91,6 +91,9 @@ public class ClientService {
         if (optionalClient.isEmpty()){
             throw new ResourceNotFoundException("Client Not Found Exception");
         }
+        if (optionalClient.get().isStatus() != true){
+            throw new ResourceNotFoundException("Client Not Found Exception");
+        }
         Client client = optionalClient.get();
         Client clientUpdate = ClientBusinessRule.refreshClient(client,clientRefresh);
         clientRepository.save(clientUpdate);

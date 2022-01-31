@@ -19,6 +19,8 @@ public class ClientRefresh {
         this.cpfOrCnpj = cpfOrCnpj;
     }
 
+    public ClientRefresh(){}
+
     // Métodos Gets e Sets
     public String getName() {
         return name;
