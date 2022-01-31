@@ -1,6 +1,7 @@
 package br.com.udemy.Spring.FullStack.domain;
 
 import br.com.udemy.Spring.FullStack.domain.enums.StatePayment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public abstract class Payment extends SuperEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Pedido order;
 
     // Construtores

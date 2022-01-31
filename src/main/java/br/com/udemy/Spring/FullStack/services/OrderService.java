@@ -45,6 +45,9 @@ public class OrderService {
         if (optionalOrder.isEmpty()){
             throw new ResourceNotFoundException("Order Not Found");
         }
+        if (optionalOrder.get().isStatus() != true){
+            throw new ResourceNotFoundException("Order Not Found");
+        }
         Pedido order = optionalOrder.get();
         return OrderBusinessRule.convertOrderInOrderDto(order);
     }

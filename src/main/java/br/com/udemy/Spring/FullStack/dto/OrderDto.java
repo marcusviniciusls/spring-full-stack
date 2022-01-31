@@ -1,11 +1,14 @@
 package br.com.udemy.Spring.FullStack.dto;
 
 import br.com.udemy.Spring.FullStack.domain.Client;
+import br.com.udemy.Spring.FullStack.domain.Payment;
+import br.com.udemy.Spring.FullStack.domain.enums.StatePayment;
 import br.com.udemy.Spring.FullStack.factory.OrderBusinessRule;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,11 +19,14 @@ import java.util.List;
  */
 public class OrderDto {
 
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+
     // Atributos
     private LocalDateTime date;
     private AddressDto addressDto;
     private ClientDto clientDto;
     private List<OrderItemDto> orderItemDto = new ArrayList<>();
+    private List<Payment> listPayment;
 
     // Construtores
     public OrderDto(LocalDateTime date, AddressDto addressDto) {
@@ -28,7 +34,8 @@ public class OrderDto {
         this.addressDto = addressDto;
     }
 
-    public OrderDto(){}
+    public OrderDto() {
+    }
 
     // Métodos Gets e Sets
     public LocalDateTime getDate() {
@@ -71,7 +78,15 @@ public class OrderDto {
         return orderItemDto;
     }
 
-    public BigDecimal getTotal(){
+    public BigDecimal getTotal() {
         return OrderBusinessRule.getTotalOrder(this.orderItemDto);
+    }
+
+    public List<Payment> getListPayment() {
+        return listPayment;
+    }
+
+    public void setListPayment(List<Payment> listPayment) {
+        this.listPayment = listPayment;
     }
 }

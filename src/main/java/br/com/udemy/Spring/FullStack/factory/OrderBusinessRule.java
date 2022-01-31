@@ -1,6 +1,7 @@
 package br.com.udemy.Spring.FullStack.factory;
 
 import br.com.udemy.Spring.FullStack.domain.Address;
+import br.com.udemy.Spring.FullStack.domain.Payment;
 import br.com.udemy.Spring.FullStack.domain.Pedido;
 import br.com.udemy.Spring.FullStack.domain.OrderItem;
 import br.com.udemy.Spring.FullStack.dto.AddressDto;
@@ -10,6 +11,8 @@ import br.com.udemy.Spring.FullStack.dto.OrderItemDto;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +40,7 @@ public class OrderBusinessRule {
             listOrderItemDto.add(OrderItemBusinessRule.convertOrderItemInOrderItemDto(orderItem));
         }
         orderDto.setOrderItemDto(listOrderItemDto);
+        orderDto.setListPayment(order.getPayment());
 
         return orderDto;
     }

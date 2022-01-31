@@ -1,6 +1,7 @@
 package br.com.udemy.Spring.FullStack.dto;
 
 import br.com.udemy.Spring.FullStack.domain.enums.Nature;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
