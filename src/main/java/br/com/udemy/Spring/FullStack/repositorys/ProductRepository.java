@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -27,4 +28,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
             " AND c.status = true")
     Page<Product> findProductNamePerCategory(@Param("nome") String nameProduct,
                                              @Param("listNameCategory") List<String> listNameCategory, Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE p.codyProduct = :codyProduct AND p.status = true")
+    Optional<Product> findByProduct (@Param("codyProduct") String codyProduct);
 }

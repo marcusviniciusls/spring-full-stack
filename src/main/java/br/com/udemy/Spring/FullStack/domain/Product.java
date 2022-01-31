@@ -15,6 +15,7 @@ public class Product extends SuperEntity {
     // Atributos
     private String nome;
     private BigDecimal price;
+    private String codyProduct;
     
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -57,5 +58,13 @@ public class Product extends SuperEntity {
     
     public void addItemPedido(OrderItem orderItem){
         this.listOrderItem.add(orderItem);
+    }
+
+    public String getCodyProduct() {
+        return codyProduct;
+    }
+
+    public void setCodyProduct(String codyProduct) {
+        this.codyProduct = codyProduct;
     }
 }

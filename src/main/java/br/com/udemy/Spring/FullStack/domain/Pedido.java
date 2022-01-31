@@ -1,14 +1,16 @@
 package br.com.udemy.Spring.FullStack.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * Classe de entidade para a tabela de Pedidos
@@ -18,10 +20,13 @@ import java.util.Locale;
 public class Pedido extends SuperEntity {
 
     // Atributos
-    private LocalDateTime data = LocalDateTime.now();
+    @DateTimeFormat(pattern="dd-MMM-YYYY")
+    private LocalDateTime dataCriacao = LocalDateTime.now();
     
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> listOrderItem = new ArrayList<>();
+
+    private static Integer number = 1;
     
     @ManyToOne
     @JoinColumn(name = "address_id")
@@ -37,15 +42,19 @@ public class Pedido extends SuperEntity {
     private BigDecimal valueTotal = getValorTotal();
 
     // Construtores
-    public Pedido(){}
+    public Pedido(){
+        this.number++;
+    }
 
     public Pedido(Address address) {
         this.address = address;
+        this.number++;
     }
 
     // Métodos gets e sets
-    public LocalDateTime getData() {
-        return data;
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
     }
 
     public List<OrderItem> getListOrderItem() {
@@ -105,13 +114,21 @@ public class Pedido extends SuperEntity {
         this.valueTotal = valueTotal;
     }
 
+    public static Integer getNumber() {
+        return number;
+    }
+
+    public static void setNumber(Integer number) {
+        Pedido.number = number;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
-        stringBuilder.append("Data: " + this.getData());
+        stringBuilder.append("Data: " + this.getDataCriacao());
         stringBuilder.append(" Endereço: " + this.getAddress().getAddress());
         stringBuilder.append(" Número: " + this.getAddress().getNumber());
         stringBuilder.append(" Complemento: " + this.getAddress().getComplement());

@@ -10,15 +10,14 @@ import java.util.UUID;
 public class PedidoFormFull {
 
     // Atributos
-    @Type(type="org.hibernate.type.UUIDCharType")
-    private UUID idClient;
+    private String cpfOrCnpj;
     private Integer numberOfInstallments;
     private String payment;
     private List<OrderItemForm> listItems = new ArrayList<>();
 
     // Construtores
-    public PedidoFormFull(UUID idClient, Integer numberOfInstallments, String payment) {
-        this.idClient = idClient;
+    public PedidoFormFull(String cpfOrCnpj, Integer numberOfInstallments, String payment) {
+        this.cpfOrCnpj = cpfOrCnpj;
         this.numberOfInstallments = numberOfInstallments;
         this.payment = payment;
     }
@@ -26,10 +25,6 @@ public class PedidoFormFull {
     public PedidoFormFull(){}
 
     // Métodos Gets e Sets
-    public UUID getIdClient() {
-        return idClient;
-    }
-
     public Integer getNumberOfInstallments() {
         return numberOfInstallments;
     }
@@ -40,10 +35,6 @@ public class PedidoFormFull {
 
     public List<OrderItemForm> getListItems() {
         return listItems;
-    }
-
-    public void setIdClient(UUID idClient) {
-        this.idClient = idClient;
     }
 
     public void setNumberOfInstallments(Integer numberOfInstallments) {
@@ -60,5 +51,13 @@ public class PedidoFormFull {
 
     public void addListItems(OrderItemForm orderItemForm){
         this.listItems.add(orderItemForm);
+    }
+
+    public String getCpfOrCnpj() {
+        return cpfOrCnpj;
+    }
+
+    public void setCpfOrCnpj(String cpfOrCnpj) {
+        this.cpfOrCnpj = cpfOrCnpj;
     }
 }

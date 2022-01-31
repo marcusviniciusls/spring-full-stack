@@ -88,6 +88,11 @@ public class TesteConfig implements CommandLineRunner {
         Product produto2 = new Product("Canetas",categoria3);
         Product produto3 = new Product("Sapato", categoria3);
         Product produto4 = new Product("Cabos",new BigDecimal("100"), categoria2);
+        produto.setCodyProduct("1");
+        produto1.setCodyProduct("2");
+        produto2.setCodyProduct("3");
+        produto3.setCodyProduct("4");
+        produto4.setCodyProduct("5");
         productRepository.saveAll(Arrays.asList(produto,produto1,produto2,produto3,produto4));
 
         // Criação Estados

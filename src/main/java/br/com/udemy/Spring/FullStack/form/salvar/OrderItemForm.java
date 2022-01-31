@@ -7,14 +7,13 @@ import java.util.UUID;
 public class OrderItemForm {
 
     // Atributos
-    @Type(type="org.hibernate.type.UUIDCharType")
     private Integer quantity;
-    private UUID idProduct;
+    private String codyProduct;
 
     // Construtores
-    public OrderItemForm(Integer quantity, UUID idProduct) {
+    public OrderItemForm(Integer quantity, String codyProduct) {
         this.quantity = quantity;
-        this.idProduct = idProduct;
+        this.codyProduct = codyProduct;
     }
 
     public OrderItemForm(){}
@@ -28,11 +27,11 @@ public class OrderItemForm {
         this.quantity = quantity;
     }
 
-    public UUID getIdProduct() {
-        return idProduct;
+    public String getCodyProduct() {
+        return codyProduct;
     }
 
-    public void setIdProduct(UUID idProduct) {
-        this.idProduct = idProduct;
+    public void setCodyProduct(String codyProduct) {
+        this.codyProduct = codyProduct;
     }
 }

@@ -54,11 +54,7 @@ public class OrderService {
 
     @Transactional
     public void saveOrder(PedidoFormFull pedidoFormFull){
-        Optional<Client> optionalClient = clientRepository.findById(pedidoFormFull.getIdClient());
-        if (optionalClient.isEmpty()){
-            throw new ResourceNotFoundException("Client Not Found Exception");
-        }
-        Client client = optionalClient.get();
+        Client client = clientService.findByClientPerCpfOrCnpj(pedidoFormFull.getCpfOrCnpj());
         Address address = client.getListAddress().get(0);
         address.setClient(client);
         Pedido order = new Pedido();
@@ -66,7 +62,7 @@ public class OrderService {
         order.setAddress(address);
         List<OrderItem> listOrderItem = new ArrayList<>();
         for (OrderItemForm orderItemForm : pedidoFormFull.getListItems()){
-            Optional<Product> optionalProduct = productRepository.findById(orderItemForm.getIdProduct());
+            Optional<Product> optionalProduct = productRepository.findByProduct(orderItemForm.getCodyProduct());
             if (optionalProduct.isEmpty()){
                 throw new ResourceNotFoundException("Product Not Found");
             }

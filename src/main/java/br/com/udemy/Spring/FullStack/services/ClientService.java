@@ -172,4 +172,25 @@ public class ClientService {
         addressRepository.save(address);
         return address;
     }
+
+    public Client findByClientPerCpfOrCnpj(String cpfOrCnpj){
+        Client client = null;
+        Optional<Client> optionalClientCpf = clientRepository.findByClientPerCpf(cpfOrCnpj);
+        if (optionalClientCpf.isEmpty()){
+            Optional<Client> optionalClientCnpj = clientRepository.findByClientPerCnpj(cpfOrCnpj);
+            if (optionalClientCnpj.isEmpty()){
+                throw new ResourceNotFoundException("Client Not Found Exception");
+            } else {
+                client = optionalClientCnpj.get();
+            }
+        } else {
+            client = optionalClientCpf.get();
+        }
+
+        if (client == null){
+            throw new ResourceNotFoundException("Client Not Found Exception");
+        } else {
+            return client;
+        }
+    }
 }
