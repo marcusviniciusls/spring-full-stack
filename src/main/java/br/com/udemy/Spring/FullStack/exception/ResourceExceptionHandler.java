@@ -80,4 +80,12 @@ public class ResourceExceptionHandler {
         StandardError erro = new StandardError(Instant.now(), httpStatus.value(), error, exception.getMessage(), httpServletRequest.getRequestURI());
         return ResponseEntity.status(httpStatus).body(erro);
     }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> authorization(AuthorizationException authorizationException, HttpServletRequest httpServletRequest){
+        String error = "OBJECT NOT FOUND EXCEPTION";
+        HttpStatus httpStatus = HttpStatus.FORBIDDEN;
+        StandardError erro = new StandardError(Instant.now(), httpStatus.value(), error, authorizationException.getMessage(), httpServletRequest.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(erro);
+    }
 }

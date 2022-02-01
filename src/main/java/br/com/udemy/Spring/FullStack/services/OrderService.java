@@ -1,16 +1,21 @@
 package br.com.udemy.Spring.FullStack.services;
 
 import br.com.udemy.Spring.FullStack.domain.*;
+import br.com.udemy.Spring.FullStack.dto.CategoryDto;
+import br.com.udemy.Spring.FullStack.dto.ClientDto;
 import br.com.udemy.Spring.FullStack.dto.OrderDto;
+import br.com.udemy.Spring.FullStack.exception.AuthorizationException;
 import br.com.udemy.Spring.FullStack.exception.ResourceNotFoundException;
-import br.com.udemy.Spring.FullStack.factory.ClientBusinessRule;
-import br.com.udemy.Spring.FullStack.factory.OrderBusinessRule;
-import br.com.udemy.Spring.FullStack.factory.OrderItemBusinessRule;
-import br.com.udemy.Spring.FullStack.factory.PaymentBusinessRule;
+import br.com.udemy.Spring.FullStack.factory.*;
 import br.com.udemy.Spring.FullStack.form.salvar.OrderItemForm;
 import br.com.udemy.Spring.FullStack.form.salvar.PedidoFormFull;
 import br.com.udemy.Spring.FullStack.repositorys.*;
+import br.com.udemy.Spring.FullStack.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -90,5 +95,21 @@ public class OrderService {
             paymentRepository.save(payment);
         }
         emailService.sendOrderConfirmationHtmlEmail(order);
+    }
+
+    public Page<OrderDto> findByClient(Integer page, Integer linesPerPage, String orderBy, String direction){
+        UserSS user = UserService.authenticated();
+        if (user == null){
+            throw new AuthorizationException("Access Denied");
+        }
+        Pageable pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+        Optional<Client> optionalClient = clientRepository.findById(user.getId());
+        if (optionalClient.isEmpty()){
+            throw new ResourceNotFoundException("Client Not Found");
+        }
+        Client client = optionalClient.get();
+        Page<Pedido> orderPage = orderRepository.findByClient(client,pageRequest);
+        Page<OrderDto> orderDtoPage = orderPage.map(OrderBusinessRule::convertOrderInOrderDto);
+        return orderDtoPage;
     }
 }

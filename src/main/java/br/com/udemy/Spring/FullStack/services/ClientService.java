@@ -1,13 +1,16 @@
 package br.com.udemy.Spring.FullStack.services;
 
 import br.com.udemy.Spring.FullStack.domain.*;
+import br.com.udemy.Spring.FullStack.domain.enums.Profile;
 import br.com.udemy.Spring.FullStack.dto.ClientDto;
+import br.com.udemy.Spring.FullStack.exception.AuthorizationException;
 import br.com.udemy.Spring.FullStack.exception.ResourceNotFoundException;
 import br.com.udemy.Spring.FullStack.factory.*;
 import br.com.udemy.Spring.FullStack.form.atualizar.ClientRefresh;
 import br.com.udemy.Spring.FullStack.form.salvar.ClientForm;
 import br.com.udemy.Spring.FullStack.form.salvar.ClientFormFull;
 import br.com.udemy.Spring.FullStack.repositorys.*;
+import br.com.udemy.Spring.FullStack.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -51,6 +54,10 @@ public class ClientService {
      * @return - Retorna o ClientDto encontrado
      */
     public ClientDto findById(UUID id){
+        UserSS userSS = UserService.authenticated();
+        if (userSS == null || !userSS.hasRole(Profile.ADMIN) && !id.equals(userSS.getId())){
+            throw new AuthorizationException("Access Denied!");
+        }
         Optional<Client> optionalClient = clientRepository.findById(id);
         ClientBusinessRule.checkClientSearch(optionalClient);
         Client client = ClientBusinessRule.checkClientMarkedDeleted(optionalClient.get());

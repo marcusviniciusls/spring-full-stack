@@ -46,4 +46,7 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
     @Query("SELECT c FROM Client c WHERE c.cnpj = :cnpj AND c.status = true")
     Optional<Client> findByClientPerCnpj(@Param("cnpj") String cnpj);
 
+    @Query("SELECT c FROM Client c WHERE c.email = :email AND c.status = true")
+    Optional<Client> findByClientPerEmail(@Param("email")String email);
+
 }

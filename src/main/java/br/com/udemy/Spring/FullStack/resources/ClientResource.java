@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -43,6 +44,7 @@ public class ClientResource {
      * @param direction - Ascendente e Descendente
      * @return - retorna uma lista de ClientDto
      */
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
     public ResponseEntity<Page<ClientDto>> findByAllCliente(
             @RequestParam(value="page", defaultValue = "0") Integer page,
@@ -82,6 +84,7 @@ public class ClientResource {
      * @param id - Recebe o id de quem será atualizado
      * @return - Retorna um ok caso de certo
      */
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<?> refreshClient(@Valid @RequestBody ClientRefresh clientRefresh, @PathVariable UUID id){
         clientService.updateClient(clientRefresh, id);
@@ -93,6 +96,7 @@ public class ClientResource {
      * @param id - Recebe o id de quem será excluído
      * @return - Retorna ok caso de certo
      */
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteClient(@PathVariable UUID id){
         clientService.deleteClient(id);

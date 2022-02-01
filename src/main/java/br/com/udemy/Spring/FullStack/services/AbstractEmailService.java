@@ -1,5 +1,6 @@
 package br.com.udemy.Spring.FullStack.services;
 
+import br.com.udemy.Spring.FullStack.domain.Client;
 import br.com.udemy.Spring.FullStack.domain.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -68,5 +69,21 @@ public abstract class AbstractEmailService implements EmailService{
         mimeMessageHelper.setSentDate(new Date(System.currentTimeMillis()));
         mimeMessageHelper.setText(htmlFromTemplatePedido(order),true);
         return mimeMessage;
+    }
+
+    @Override
+    public void sendNewPasswordEmail(Client client, String newPass){
+        SimpleMailMessage simpleMailMessage = prepareNewPasswordEmail(client, newPass);
+        sendEmail(simpleMailMessage);
+    }
+
+    protected SimpleMailMessage prepareNewPasswordEmail(Client client, String newPass) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(client.getEmail());
+        simpleMailMessage.setFrom(sender);
+        simpleMailMessage.setSubject("SOLICITAÇÃO DE NOVA SENHA");
+        simpleMailMessage.setSentDate(new Date(System.currentTimeMillis()));
+        simpleMailMessage.setText("Nova Senha: " + newPass);
+        return simpleMailMessage;
     }
 }

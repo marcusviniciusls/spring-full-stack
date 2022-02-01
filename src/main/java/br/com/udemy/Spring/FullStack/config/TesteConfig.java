@@ -155,7 +155,7 @@ public class TesteConfig implements CommandLineRunner {
         Telephone telefone2 = new Telephone("21","3569-0873");
 
 
-        Client cliente = new Client("Marcus Vinicius","viniciusmls@outlook.com", 0, "467518998-90");
+        Client cliente = new Client("Marcus Vinicius","marcus.silva.dev@gmail.com", 0, "467518998-90");
         cliente.addListaEndereco(endereco);
         cliente.addListaEndereco(endereco1);
         cliente.setPassword(bCryptPasswordEncoder.encode("12345"));

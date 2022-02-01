@@ -7,6 +7,7 @@ import br.com.udemy.Spring.FullStack.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -60,6 +61,7 @@ public class CategoryResource {
      * @param uriComponentsBuilder - Monta o caminho para resposta
      * @return - retorna a categoryDto criada
      */
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CategoryDto> saveCategory(@Valid @RequestBody CategoryForm categoryForm, UriComponentsBuilder uriComponentsBuilder){
         CategoryDto categoryDto = categoryService.saveCategory(categoryForm);
@@ -73,6 +75,7 @@ public class CategoryResource {
      * @param categoryRefresh - Recebe quais informações deve ser atualizado
      * @return - retorna positivo caso seja completo
      */
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<?> updateCategory(@PathVariable UUID id, @Valid @RequestBody CategoryRefresh categoryRefresh){
         categoryService.updateCategory(id,categoryRefresh);
@@ -84,6 +87,7 @@ public class CategoryResource {
      * @param id - Recebe o id da Category que tem que atualizar
      * @return - retorna um ok caso de certo
      */
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteById(@PathVariable UUID id){
         categoryService.deteleById(id);
