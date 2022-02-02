@@ -229,4 +229,15 @@ public class ClientService {
         String fileName = prefix + userSS.getId() + ".jpg";
         return s3Service.uploadFile(imageService.getInputStream(jpgImage,"jpg"), fileName, "image");
     }
+
+    public ClientDto findByClientPerEmail(String email){
+        UserSS userLoggedd = UserService.authenticated();
+        if (userLoggedd == null || !userLoggedd.hasRole(Profile.ADMIN) && !email.equals(userLoggedd.getUsername())){
+            throw new AuthorizationException("Access Denied");
+        }
+        Optional<Client> optionalClient = clientRepository.findByClientPerEmail(email);
+        ClientBusinessRule.checkClientSearch(optionalClient);
+        return ClientBusinessRule.convertClientDto(optionalClient.get());
+
+    }
 }

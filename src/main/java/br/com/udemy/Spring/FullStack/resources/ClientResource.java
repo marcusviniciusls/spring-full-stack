@@ -110,4 +110,10 @@ public class ClientResource {
         URI uri = clientService.uploadProfilePicture(multipartFile);
         return ResponseEntity.created(uri).build();
     }
+
+    @GetMapping(value = "/email")
+    public ResponseEntity<ClientDto> findByClientePerEmail(@RequestParam(value = "value") String email){
+        ClientDto clientDto = clientService.findByClientPerEmail(email);
+        return ResponseEntity.ok().body(clientDto);
+    }
 }

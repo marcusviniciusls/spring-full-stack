@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * Classe de Entidade para a tabela de Cidade
  */
 @Table
-@Entity(name = "citys")
+@Entity
 public class City extends SuperEntity {
 
     // Atributos
@@ -39,4 +39,6 @@ public class City extends SuperEntity {
     public State getState() {
         return state;
     }
+
+
 }
