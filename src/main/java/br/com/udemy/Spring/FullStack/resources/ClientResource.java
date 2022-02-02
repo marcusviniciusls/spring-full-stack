@@ -11,8 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -101,5 +103,11 @@ public class ClientResource {
     public ResponseEntity<?> deleteClient(@PathVariable UUID id){
         clientService.deleteClient(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "picture")
+    public ResponseEntity<?> uploadProfilePicture(@RequestParam(name="file") MultipartFile multipartFile){
+        URI uri = clientService.uploadProfilePicture(multipartFile);
+        return ResponseEntity.created(uri).build();
     }
 }

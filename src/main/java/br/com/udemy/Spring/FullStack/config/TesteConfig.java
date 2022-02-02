@@ -4,6 +4,7 @@ import br.com.udemy.Spring.FullStack.domain.*;
 import br.com.udemy.Spring.FullStack.repositorys.*;
 import br.com.udemy.Spring.FullStack.services.EmailService;
 import br.com.udemy.Spring.FullStack.services.MockEmailService;
+import br.com.udemy.Spring.FullStack.services.S3Service;
 import br.com.udemy.Spring.FullStack.services.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -56,6 +57,9 @@ public class TesteConfig implements CommandLineRunner {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private S3Service s3Service;
     
     @Override
     public void run(String... args) throws Exception {

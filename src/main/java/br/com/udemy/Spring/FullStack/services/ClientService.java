@@ -12,14 +12,18 @@ import br.com.udemy.Spring.FullStack.form.salvar.ClientFormFull;
 import br.com.udemy.Spring.FullStack.repositorys.*;
 import br.com.udemy.Spring.FullStack.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.awt.image.BufferedImage;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,6 +51,18 @@ public class ClientService {
 
     @Autowired
     private AddressRepository addressRepository;
+
+    @Autowired
+    private S3Service s3Service;
+
+    @Autowired
+    private ImageService imageService;
+
+    @Value("${img.prefix.client.profile}")
+    private String prefix;
+
+    @Value("${img.profile.size}")
+    private Integer size;
 
     /**
      * Busca um Client por id
@@ -199,5 +215,18 @@ public class ClientService {
         } else {
             return client;
         }
+    }
+
+    public URI uploadProfilePicture(MultipartFile multipartFile){
+        UserSS userSS = UserService.authenticated();
+        if (userSS == null){
+            throw new AuthorizationException("Access Denied");
+        }
+
+        BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+        jpgImage = imageService.cropSquare(jpgImage);
+        jpgImage = imageService.resize(jpgImage, size);
+        String fileName = prefix + userSS.getId() + ".jpg";
+        return s3Service.uploadFile(imageService.getInputStream(jpgImage,"jpg"), fileName, "image");
     }
 }
