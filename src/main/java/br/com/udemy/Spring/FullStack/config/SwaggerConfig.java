@@ -17,18 +17,10 @@ import java.util.Collections;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    private final ResponseMessage m201 = simpleMessage(201, "Recurso criado");
-    private final ResponseMessage m204put = simpleMessage(204, "Atualização ok");
-    private final ResponseMessage m204del = simpleMessage(204, "Deleção ok");
-    private final ResponseMessage m403 = simpleMessage(403, "Não autorizado");
-    private final ResponseMessage m404 = simpleMessage(404, "Não encontrado");
-    private final ResponseMessage m422 = simpleMessage(422, "Erro de validação");
-    private final ResponseMessage m500 = simpleMessage(500, "Erro inesperado");
-
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                
+
 
                 .select()
                 .apis(RequestHandlerSelectors.any())
